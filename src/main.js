@@ -2,6 +2,7 @@
 // VictorMeet — Application Entry Point
 // ============================================================
 
+import { inject } from '@vercel/analytics';
 import { initRouter, registerRoute, navigate } from './router.js';
 import { loadUserFromStorage, getState } from './state.js';
 import { initSocket } from './socket.js';
@@ -15,6 +16,9 @@ import * as settings from './pages/settings.js';
 import * as report from './pages/report.js';
 
 async function init() {
+  // ── Initialize Vercel Web Analytics ─────────────────────────
+  inject();
+
   // ── Register all routes ─────────────────────────────────────
   registerRoute('/landing', landing);
   registerRoute('/auth', auth);
