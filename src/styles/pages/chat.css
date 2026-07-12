@@ -761,3 +761,49 @@
     border-radius: var(--radius-md);
   }
 }
+
+/* ── Circular Video Layout for Webcams ────────────────────────── */
+.video-container-classic {
+  width: 48%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-6);
+  border-right: 2px solid var(--border);
+  height: 100%;
+  box-sizing: border-box;
+  background: var(--bg-secondary);
+  padding: var(--space-4);
+}
+
+.video-circle-wrapper {
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  background: #222;
+  transition: transform var(--transition-base);
+}
+
+.video-circle-wrapper:hover {
+  transform: scale(1.03);
+}
+
+.video-circle-wrapper.stranger {
+  border: 4px solid var(--secondary) !important; /* Orange border for stranger */
+}
+
+.video-circle-wrapper.you {
+  border: 4px solid var(--primary) !important; /* Blue border for you */
+}
+
+.video-circle-wrapper video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+

@@ -54,30 +54,29 @@ export function render() {
       <!-- Classic Work Area -->
       <div class="chat-main-classic" style="display: flex; flex: 1; overflow: hidden; background: var(--bg-primary); width: 100%;">
         
-        <!-- Left Column: Stacked Videos -->
-        <div class="video-container-classic" style="width: 40%; display: flex; flex-direction: column; gap: var(--space-3); padding: var(--space-4); border-right: 1px solid var(--border); box-sizing: border-box; position: relative; height: 100%;">
+        <!-- Left Column: Circular Videos (Stranger & You) -->
+        <div class="video-container-classic">
           
-          <!-- Remote Video Frame -->
-          <div class="video-frame" style="flex: 1; background: #000; border: 2px solid var(--border); border-radius: var(--radius-md); overflow: hidden; position: relative;">
-            <video id="remoteVideo" autoplay playsinline style="width: 100%; height: 100%; object-fit: cover;"></video>
-            <div style="position: absolute; bottom: 8px; left: 8px; background: rgba(0,0,0,0.6); padding: var(--space-1) var(--space-2); border-radius: var(--radius-sm); font-size: 12px; font-weight: 600; color: #fff; z-index: 10;">Stranger</div>
+          <!-- Stranger Video Circle -->
+          <div class="video-circle-wrapper stranger">
+            <video id="remoteVideo" autoplay playsinline></video>
             
             <!-- Video Placeholder / Matching Overlay -->
-            <div id="videoPlaceholder" style="position: absolute; inset: 0; background: rgba(11,15,26,0.95); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 5;">
-              <div style="font-size: 36px; margin-bottom: var(--space-2);">📹</div>
-              <div style="font-size: 14px; color: var(--text-secondary); font-weight: 500;">Click Start to begin matching</div>
+            <div id="videoPlaceholder" style="position: absolute; inset: 0; background: rgba(0,0,0,0.85); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 5;">
+              <div style="font-size: 28px; margin-bottom: 4px;">📹</div>
+              <div style="font-size: 12px; color: #FFF; font-weight: bold; text-align: center; text-transform: uppercase; letter-spacing: 0.5px;">Stranger</div>
             </div>
             
-            <div id="matchingOverlay" style="position: absolute; inset: 0; background: rgba(0,0,0,0.9); display: none; flex-direction: column; align-items: center; justify-content: center; z-index: 6; gap: var(--space-3);">
-              <div class="matching-spinner" style="width: 40px; height: 40px; border: 3px solid var(--border); border-top-color: var(--primary); border-radius: 50%; animation: spin 1s linear infinite;"></div>
-              <div style="font-size: 14px; color: var(--text-primary); font-weight: 600;">Looking for a match...</div>
+            <div id="matchingOverlay" style="position: absolute; inset: 0; background: rgba(0,0,0,0.9); display: none; flex-direction: column; align-items: center; justify-content: center; z-index: 6; gap: 8px;">
+              <div class="matching-spinner" style="width: 32px; height: 32px; border: 3px solid rgba(255,255,255,0.2); border-top-color: var(--secondary); border-radius: 50%; animation: spin 1s linear infinite;"></div>
+              <div style="font-size: 11px; color: #FFF; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">Matching...</div>
             </div>
           </div>
 
-          <!-- Local Video Frame -->
-          <div class="video-frame" style="flex: 1; background: #000; border: 2px solid var(--border); border-radius: var(--radius-md); overflow: hidden; position: relative;">
-            <video id="localVideo" autoplay playsinline muted style="width: 100%; height: 100%; object-fit: cover; transform: scaleX(-1);"></video>
-            <div style="position: absolute; color: #FFF; font-size: 20px; font-weight: 800; pointer-events: none; text-transform: uppercase; letter-spacing: 1px; text-shadow: 0 2px 4px rgba(0,0,0,0.6);">You</div>
+          <!-- Local Video Circle -->
+          <div class="video-circle-wrapper you">
+            <video id="localVideo" autoplay playsinline muted style="transform: scaleX(-1);"></video>
+            <div style="position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.6); padding: 2px 8px; border-radius: var(--radius-full); font-size: 11px; font-weight: 800; color: #fff; z-index: 10; text-transform: uppercase; letter-spacing: 0.5px;">You</div>
           </div>
 
         </div>
