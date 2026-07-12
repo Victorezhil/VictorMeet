@@ -162,7 +162,8 @@ export function mount() {
   // Ensure socket
   let socket = getSocket();
   if (!socket && getState('token')) {
-    socket = initSocket();
+    const savedUsername = localStorage.getItem('vm_username') || 'Stranger';
+    socket = initSocket(savedUsername);
   }
 
   // Update online count in header

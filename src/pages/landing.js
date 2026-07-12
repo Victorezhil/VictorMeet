@@ -201,36 +201,20 @@ export function mount() {
       return;
     }
 
-    // Start matching process
-    // Perform guest login using the provided username
-    try {
-      const res = await fetch('/api/auth/guest', { 
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ nickname: username })
-      });
-      const data = await res.json();
-      if (!res.ok) {
-        alert(data.error || 'Failed to authenticate session.');
-        return;
-      }
-      localStorage.setItem('vm_token', data.token);
-      setState('token', data.token);
-      setState('user', data.user);
-      setState('isAuthenticated', true);
-      initSocket();
-    } catch (err) {
-      console.error('[landing] guest sign-in error:', err);
-      alert('Connection error. Please try again.');
-      return;
-    }
+    // Bypassing database JWT logic for instant tokenless connection
+    setState('token', 'guest-token'); // Set placeholder token
+    setState('user', { nickname: username, accountType: 'guest' });
+    setState('isAuthenticated', true);
+    
+    // Save username locally for connection persistence
+    localStorage.setItem('vm_username', username);
 
     // Set routing to chat page
     navigate('/chat');
     
     // Trigger match start automatically on the chat page based on mode
     setTimeout(() => {
-      const socket = initSocket();
+      const socket = initSocket(username);
       if (socket) {
         // Toggle camera based on text vs video mode
         if (mode === 'text') {

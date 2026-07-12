@@ -13,16 +13,14 @@ let socket = null;
  * Attaches global event handlers for connection lifecycle and online count.
  * @returns {import('socket.io-client').Socket}
  */
-export function initSocket() {
+export function initSocket(nickname) {
   if (socket && socket.connected) return socket;
-
-  const token = getState('token');
 
   const isProduction = window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1';
   const backendUrl = isProduction ? 'https://victormeet-1.onrender.com' : '/';
 
   socket = io(backendUrl, {
-    auth: { token },
+    auth: { nickname },
     transports: ['websocket', 'polling'],
     reconnectionAttempts: 10,
     reconnectionDelay: 1000,

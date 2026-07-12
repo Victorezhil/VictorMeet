@@ -25,26 +25,13 @@ const QUEUE_STATUS_INTERVAL = 5_000;
  */
 export function setupSignaling(io, store, matchQueue) {
 
-  // ─── Socket authentication middleware ────────────────────
-  io.use(async (socket, next) => {
-    const token = socket.handshake.auth?.token;
-    if (!token) {
-      return next(new Error('Authentication required'));
-    }
-
-    try {
-      const decoded = verifyToken(token);
-      const user = await store.getUser(decoded.userId);
-      if (!user) return next(new Error('User not found'));
-
-      // Attach user data to the socket for later use
-      socket.userId = user.id;
-      socket.userNickname = user.nickname;
-      socket.accountType = user.accountType;
-      next();
-    } catch (err) {
-      return next(new Error('Invalid or expired token'));
-    }
+  // ─── Socket setup middleware (Tokenless connection) ──────
+  io.use((socket, next) => {
+    const nickname = socket.handshake.auth?.nickname;
+    socket.userId = socket.id; // Treat socket.id as unique user ID
+    socket.userNickname = nickname && nickname.trim() ? nickname.trim() : 'Stranger';
+    socket.accountType = 'guest';
+    next();
   });
 
   // ─── Periodic queue-status broadcast ─────────────────────
