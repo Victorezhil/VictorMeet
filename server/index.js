@@ -28,22 +28,36 @@ import {
 // ─── Server setup ────────────────────────────────────────────
 
 const PORT = process.env.PORT || 3001;
-const CLIENT_ORIGIN = 'http://localhost:3002';
+
+const ALLOWED_ORIGINS = [
+  'http://localhost:3002',
+  'https://victor-meet.vercel.app',
+  'https://victormedia.net',
+];
+
+const corsOptions = {
+  origin: (origin, callback) => {
+    if (!origin) return callback(null, true);
+    if (
+      ALLOWED_ORIGINS.includes(origin) ||
+      origin.endsWith('.vercel.app')
+    ) {
+      return callback(null, true);
+    }
+    return callback(new Error('Not allowed by CORS'));
+  },
+  credentials: true,
+};
 
 const app = express();
 const httpServer = createServer(app);
-
 const io = new SocketIO(httpServer, {
-  cors: {
-    origin: CLIENT_ORIGIN,
-    methods: ['GET', 'POST'],
-    credentials: true,
-  },
+  cors: corsOptions,
 });
 
 // ─── Middleware ───────────────────────────────────────────────
 
-app.use(cors({ origin: CLIENT_ORIGIN, credentials: true }));
+app.use(cors(corsOptions));
 app.use(express.json());
 
 // ─── Auth routes ─────────────────────────────────────────────

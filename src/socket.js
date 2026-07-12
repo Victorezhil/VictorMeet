@@ -18,7 +18,10 @@ export function initSocket() {
 
   const token = getState('token');
 
-  socket = io('/', {
+  const isProduction = window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1';
+  const backendUrl = isProduction ? 'https://victormeet.onrender.com' : '/';
+
+  socket = io(backendUrl, {
     auth: { token },
     transports: ['websocket', 'polling'],
     reconnectionAttempts: 10,
