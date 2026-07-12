@@ -18,7 +18,9 @@ export function render() {
     <div class="landing-page classic-layout">
       <!-- Navbar -->
       <nav class="navbar" style="position: static; height: auto; padding: var(--space-4) var(--space-6); background: transparent; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between;">
-        <a href="#/landing" class="nav-logo" style="font-size: 32px; font-weight: 900; background: var(--gradient-primary); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; text-decoration: none;">VictorMeet</a>
+        <a href="#/landing" class="nav-logo" style="font-size: 36px; font-weight: 900; text-decoration: none; font-family: sans-serif;">
+          <span style="color: var(--primary);">Victor</span><span style="color: var(--secondary);">Meet</span>
+        </a>
         <div style="font-size: var(--text-sm); color: var(--text-secondary); font-weight: 500;">
           Talk to Strangers!
         </div>

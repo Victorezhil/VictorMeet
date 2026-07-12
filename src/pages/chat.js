@@ -31,7 +31,9 @@ export function render() {
       <!-- Classic Header -->
       <div class="chat-header-classic" style="display: flex; justify-content: space-between; align-items: center; padding: var(--space-3) var(--space-6); background: var(--bg-secondary); border-bottom: 1px solid var(--border); flex-shrink: 0;">
         <div style="display: flex; align-items: center; gap: var(--space-3);">
-          <a href="#/landing" class="nav-logo" style="font-size: 28px; font-weight: 900; background: var(--gradient-primary); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; text-decoration: none;">VictorMeet</a>
+          <a href="#/landing" class="nav-logo" style="font-size: 28px; font-weight: 900; text-decoration: none; font-family: sans-serif;">
+            <span style="color: var(--primary);">Victor</span><span style="color: var(--secondary);">Meet</span>
+          </a>
           <span style="font-size: 13px; color: var(--text-secondary); font-weight: 500;">Talk to Strangers!</span>
         </div>
         <div style="font-size: 13px; color: var(--text-secondary); font-weight: 500;">
