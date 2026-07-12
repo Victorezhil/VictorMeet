@@ -597,3 +597,23 @@
     padding: var(--space-6);
   }
 }
+
+/* ── Responsive Landing Grid Override ────────────────────────── */
+.landing-split-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: var(--space-10);
+  max-width: 1100px;
+  margin: var(--space-8) auto;
+  padding: 0 var(--space-6);
+}
+
+@media (max-width: 768px) {
+  .landing-split-grid {
+    grid-template-columns: 1fr !important;
+    gap: var(--space-6) !important;
+    margin: var(--space-4) auto !important;
+    padding: 0 var(--space-4) !important;
+  }
+}
+

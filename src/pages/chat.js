@@ -19,6 +19,7 @@ import {
   changeVideoSource,
 } from '../webrtc.js';
 import { openDonateModal } from './donate.js';
+import { TRANSLATIONS } from './languages.js';
 
 let socketHandlers = {};
 let unsubs = [];
@@ -27,6 +28,9 @@ let stopConfirmState = false; // Tracks if "Stop" button is in "Really?" confirm
 // ── Render ────────────────────────────────────────────────────
 
 export function render() {
+  const langCode = localStorage.getItem('vm_lang') || 'en';
+  const t = TRANSLATIONS[langCode] || TRANSLATIONS.en;
+
   return `
     <div class="chat-container classic-layout" style="width: 100vw; height: 100vh; display: flex; flex-direction: column; overflow: hidden; background: var(--bg-primary);">
       
@@ -36,13 +40,13 @@ export function render() {
           <a href="#/landing" class="nav-logo" style="font-size: 28px; font-weight: 900; text-decoration: none; font-family: sans-serif;">
             <span style="color: var(--primary);">Victor</span><span style="color: var(--secondary);">Meet</span>
           </a>
-          <span style="font-size: 13px; color: var(--text-secondary); font-weight: 500;">Talk to Strangers!</span>
+          <span style="font-size: 13px; color: var(--text-secondary); font-weight: 500;">${t.tagline}</span>
         </div>
         <div style="display: flex; align-items: center; gap: var(--space-4);">
           <div style="font-size: 13px; color: var(--text-secondary); font-weight: 500;">
-            <span id="onlineCountStatHeader">0</span> users online
+            <span id="onlineCountStatHeader">0</span> ${t.usersOnline}
           </div>
-          <button id="donateBtn" class="btn" style="background: #28a745; color: #FFF; font-size: 12px; font-weight: 800; padding: 4px var(--space-3.5); border-radius: var(--radius-full); cursor: pointer; border: none; box-shadow: 0 2px 4px rgba(40,167,69,0.2);">❤️ Donate</button>
+          <button id="donateBtn" class="btn" style="background: #28a745; color: #FFF; font-size: 12px; font-weight: 800; padding: 4px var(--space-3.5); border-radius: var(--radius-full); cursor: pointer; border: none; box-shadow: 0 2px 4px rgba(40,167,69,0.2);">₹ ${t.donateLabel}</button>
         </div>
       </div>
 
@@ -74,7 +78,7 @@ export function render() {
             
             <div id="matchingOverlay" style="position: absolute; inset: 0; background: rgba(0,0,0,0.9); display: none; flex-direction: column; align-items: center; justify-content: center; z-index: 6; gap: 8px;">
               <div class="matching-spinner" style="width: 32px; height: 32px; border: 3px solid rgba(255,255,255,0.2); border-top-color: var(--secondary); border-radius: 50%; animation: spin 1s linear infinite;"></div>
-              <div style="font-size: 11px; color: #FFF; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">Matching...</div>
+              <div style="font-size: 11px; color: #FFF; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">${t.matchingOverlayText}</div>
             </div>
           </div>
 
@@ -86,9 +90,9 @@ export function render() {
 
           <!-- Camera Selector Dropdown (OBS Studio camera support) -->
           <div style="width: 100%; display: flex; flex-direction: column; align-items: center; gap: 4px; margin-top: var(--space-4); flex-shrink: 0;">
-            <label style="font-size: 10px; font-weight: 800; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px;">Select Camera Source:</label>
+            <label style="font-size: 10px; font-weight: 800; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px;">${t.selectCamera}</label>
             <select id="cameraSelect" style="background: #FFF; border: 1px solid var(--border); border-radius: var(--radius-md); padding: 4px 12px; font-size: 11px; font-weight: bold; color: var(--text-primary); cursor: pointer; max-width: 250px; outline: none; width: 80%;">
-              <option value="">Detecting cameras...</option>
+              <option value="">${t.detectingCameras}</option>
             </select>
           </div>
 
@@ -99,7 +103,7 @@ export function render() {
           
           <!-- Chat message logs -->
           <div id="chatMessages" style="flex: 1; overflow-y: auto; padding: var(--space-4); display: flex; flex-direction: column; gap: var(--space-2.5); font-size: 14.5px; font-family: Arial, sans-serif; line-height: 1.4; border-bottom: 1px solid var(--border); background: #FFF;">
-            <div style="color: #555; font-weight: bold; font-size: 13.5px;">System: Click "Start" below to begin talking to a random stranger.</div>
+            <div style="color: #555; font-weight: bold; font-size: 13.5px;">${t.systemWelcome}</div>
           </div>
 
           <!-- Connection Status indicator -->
@@ -110,15 +114,15 @@ export function render() {
             
             <!-- Big Stop/Next Button -->
             <button class="btn" id="classicStopBtn" style="width: 110px; height: 46px; font-size: 16px; font-weight: 800; background-color: var(--primary); background: var(--gradient-primary); color: #fff; border-radius: var(--radius-md); border: none; cursor: pointer; transition: all 0.1s;">
-              Start
+              ${t.startBtn}
             </button>
 
             <!-- Chat Input field -->
-            <textarea id="chatInput" placeholder="Type a message..." style="flex: 1; height: 46px; background: #FFF; border: 1px solid #CCC; border-radius: var(--radius-md); color: #222; padding: var(--space-2) var(--space-3); resize: none; font-size: 14px; font-family: Arial, sans-serif; box-sizing: border-box;" disabled></textarea>
+            <textarea id="chatInput" placeholder="${t.placeholderMsg}" style="flex: 1; height: 46px; background: #FFF; border: 1px solid #CCC; border-radius: var(--radius-md); color: #222; padding: var(--space-2) var(--space-3); resize: none; font-size: 14px; font-family: Arial, sans-serif; box-sizing: border-box;" disabled></textarea>
 
             <!-- Send Button -->
             <button class="btn btn-primary" id="sendMsgBtn" style="width: 80px; height: 46px; font-size: 15px; font-weight: 800; border-radius: var(--radius-md); background-color: var(--primary); background: var(--gradient-primary); border: none; cursor: pointer;" disabled>
-              Send
+              ${t.sendBtn}
             </button>
           </div>
 
@@ -231,10 +235,13 @@ export function mount() {
   updateUIForState(getState('callState'));
 
   function updateUIForState(callState) {
+    const langCode = localStorage.getItem('vm_lang') || 'en';
+    const t = TRANSLATIONS[langCode] || TRANSLATIONS.en;
+
     if (callState === 'idle') {
       if (placeholder) placeholder.style.display = '';
       if (matchingOverlay) matchingOverlay.style.display = 'none';
-      classicStopBtn.textContent = 'Start';
+      classicStopBtn.textContent = t.startBtn;
       classicStopBtn.style.background = 'var(--gradient-primary)';
       chatInput.disabled = true;
       sendMsgBtn.disabled = true;
@@ -259,7 +266,7 @@ export function mount() {
     } else if (callState === 'ended') {
       if (placeholder) placeholder.style.display = '';
       if (matchingOverlay) matchingOverlay.style.display = 'none';
-      classicStopBtn.textContent = 'Start';
+      classicStopBtn.textContent = t.startBtn;
       classicStopBtn.style.background = 'var(--gradient-primary)';
       chatInput.disabled = true;
       sendMsgBtn.disabled = true;
@@ -311,9 +318,12 @@ export function mount() {
       setState('partnerNickname', partnerNickname);
       setState('isInitiator', isInitiator);
       
+      const langCode = localStorage.getItem('vm_lang') || 'en';
+      const t = TRANSLATIONS[langCode] || TRANSLATIONS.en;
+      
       updateUIForState('connected');
       chatMessages.innerHTML = '';
-      appendSystemMessage("You're now chatting with a random stranger. Say hi!");
+      appendSystemMessage(t.systemMatched);
 
       if (isInitiator) {
         createOffer(socket, roomId).catch((err) =>
@@ -342,12 +352,15 @@ export function mount() {
     };
 
     socketHandlers['partner-left'] = () => {
+      const langCode = localStorage.getItem('vm_lang') || 'en';
+      const t = TRANSLATIONS[langCode] || TRANSLATIONS.en;
+
       closePeerConnection();
       setState('callState', 'ended');
       setState('partnerId', null);
       setState('partnerNickname', null);
       updateUIForState('ended');
-      appendSystemMessage('Stranger has disconnected.');
+      appendSystemMessage(t.systemLeft);
     };
 
     socketHandlers['chat-message'] = (data) => {
