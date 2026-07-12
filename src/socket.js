@@ -19,7 +19,7 @@ export function initSocket() {
   const token = getState('token');
 
   const isProduction = window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1';
-  const backendUrl = isProduction ? 'https://victormeet.onrender.com' : '/';
+  const backendUrl = isProduction ? 'https://victormeet-1.onrender.com' : '/';
 
   socket = io(backendUrl, {
     auth: { token },

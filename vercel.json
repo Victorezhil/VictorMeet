@@ -8,11 +8,11 @@
     },
     {
       "source": "/api/(.*)",
-      "destination": "https://victormeet.onrender.com/api/$1"
+      "destination": "https://victormeet-1.onrender.com/api/$1"
     },
     {
       "source": "/socket.io/(.*)",
-      "destination": "https://victormeet.onrender.com/socket.io/$1"
+      "destination": "https://victormeet-1.onrender.com/socket.io/$1"
     },
     {
       "source": "/(.*)",
