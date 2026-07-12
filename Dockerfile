@@ -33,10 +33,6 @@ COPY --from=builder /app/server ./server
 
 # Set environment
 ENV NODE_ENV=production
-ENV PORT=3001
-
-# Expose port
-EXPOSE 3001
 
 # Run signaling + Express server
 CMD ["node", "server/index.js"]

@@ -218,6 +218,8 @@ app.get('*', (req, res) => {
 
 // ─── Start server ────────────────────────────────────────────
 
-httpServer.listen(PORT, '127.0.0.1', () => {
-  console.log(`VictorMeet server running on port ${PORT}`);
+const BIND_ADDRESS = process.env.NODE_ENV === 'production' ? '0.0.0.0' : '127.0.0.1';
+
+httpServer.listen(PORT, BIND_ADDRESS, () => {
+  console.log(`VictorMeet server running on port ${PORT} (bound to ${BIND_ADDRESS})`);
 });
