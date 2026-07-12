@@ -204,6 +204,6 @@ app.get('*', (req, res) => {
 
 // ─── Start server ────────────────────────────────────────────
 
-httpServer.listen(PORT, () => {
+httpServer.listen(PORT, '127.0.0.1', () => {
   console.log(`VictorMeet server running on port ${PORT}`);
 });
