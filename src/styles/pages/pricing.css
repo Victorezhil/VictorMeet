@@ -1,0 +1,525 @@
+/* ============================================================
+   VictorMeet Pricing Page — pricing.css
+   Plans, toggle, feature lists, token packages
+   ============================================================ */
+
+/* ── Pricing Container ───────────────────────────────────────── */
+
+.pricing-container {
+  min-height: 100vh;
+  padding: var(--space-24) var(--space-6) var(--space-16);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle background glow */
+.pricing-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 800px;
+  height: 600px;
+  background: radial-gradient(
+    ellipse,
+    rgba(124, 58, 237, 0.1) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+/* ── Pricing Header ──────────────────────────────────────────── */
+
+.pricing-header {
+  max-width: 600px;
+  margin: 0 auto var(--space-12);
+  position: relative;
+  z-index: 1;
+  animation: fadeIn 600ms ease forwards;
+}
+
+.pricing-header .section-label {
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+  color: var(--primary);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-widest);
+  margin-bottom: var(--space-3);
+}
+
+.pricing-header .section-title {
+  font-size: clamp(var(--text-2xl), 3vw, var(--text-4xl));
+  font-weight: var(--font-bold);
+  color: var(--text-primary);
+  margin-bottom: var(--space-4);
+}
+
+.pricing-header .section-subtitle {
+  font-size: var(--text-lg);
+  color: var(--text-secondary);
+  line-height: var(--leading-relaxed);
+}
+
+/* ── Pricing Toggle (Monthly / Annual) ───────────────────────── */
+
+.pricing-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-4);
+  margin-bottom: var(--space-10);
+  position: relative;
+  z-index: 1;
+}
+
+.pricing-toggle-label {
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  color: var(--text-tertiary);
+  transition: color var(--transition-fast);
+  cursor: pointer;
+}
+
+.pricing-toggle-label.active {
+  color: var(--text-primary);
+}
+
+/* Custom toggle switch */
+.pricing-toggle-switch {
+  position: relative;
+  width: 52px;
+  height: 28px;
+  border-radius: var(--radius-full);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: all var(--transition-base);
+}
+
+.pricing-toggle-switch::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 20px;
+  height: 20px;
+  border-radius: var(--radius-full);
+  background: var(--gradient-primary);
+  transition: transform var(--transition-base);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.pricing-toggle-switch.annual::after {
+  transform: translateX(24px);
+}
+
+.pricing-toggle-switch:hover {
+  border-color: var(--border-hover);
+}
+
+.pricing-save-badge {
+  font-size: var(--text-xs);
+  font-weight: var(--font-semibold);
+  color: var(--accent-green);
+  background: rgba(16, 185, 129, 0.12);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-full);
+}
+
+/* ── Pricing Grid ────────────────────────────────────────────── */
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-6);
+  max-width: 1100px;
+  margin: 0 auto;
+  align-items: start;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Pricing Card ────────────────────────────────────────────── */
+
+.pricing-card {
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-8);
+  text-align: left;
+  transition: all var(--transition-slow);
+  animation: slideUp 500ms ease forwards;
+  opacity: 0;
+}
+
+.pricing-card:nth-child(1) {
+  animation-delay: 100ms;
+}
+
+.pricing-card:nth-child(2) {
+  animation-delay: 200ms;
+}
+
+.pricing-card:nth-child(3) {
+  animation-delay: 300ms;
+}
+
+.pricing-card:hover {
+  transform: translateY(-4px);
+}
+
+/* Popular (highlighted) plan */
+.pricing-card.popular {
+  border-color: var(--primary);
+  box-shadow: var(--shadow-glow-primary);
+  transform: scale(1.05);
+  z-index: 2;
+  position: relative;
+}
+
+.pricing-card.popular:hover {
+  transform: scale(1.05) translateY(-4px);
+}
+
+.pricing-popular-badge {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: var(--space-1-5) var(--space-4);
+  font-size: var(--text-xs);
+  font-weight: var(--font-semibold);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wider);
+  background: var(--gradient-primary);
+  color: #fff;
+  border-radius: var(--radius-full);
+  white-space: nowrap;
+  box-shadow: 0 4px 12px var(--primary-glow);
+}
+
+/* Plan name & icon */
+.pricing-plan-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
+}
+
+.pricing-plan-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  background: var(--gradient-card);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary);
+}
+
+.pricing-plan-icon svg {
+  width: 22px;
+  height: 22px;
+}
+
+.pricing-plan-name {
+  font-size: var(--text-lg);
+  font-weight: var(--font-bold);
+  color: var(--text-primary);
+}
+
+.pricing-plan-description {
+  font-size: var(--text-sm);
+  color: var(--text-tertiary);
+}
+
+/* Price */
+.pricing-price-row {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-1);
+  margin-bottom: var(--space-6);
+}
+
+.pricing-price {
+  font-size: var(--text-4xl);
+  font-weight: var(--font-black);
+  color: var(--text-primary);
+  line-height: var(--leading-none);
+}
+
+.pricing-currency {
+  font-size: var(--text-xl);
+  font-weight: var(--font-bold);
+  color: var(--text-secondary);
+}
+
+.pricing-period {
+  font-size: var(--text-sm);
+  color: var(--text-tertiary);
+}
+
+.pricing-price-free {
+  font-size: var(--text-4xl);
+  font-weight: var(--font-black);
+  color: var(--text-primary);
+  line-height: var(--leading-none);
+}
+
+/* CTA button in card */
+.pricing-card .pricing-cta {
+  width: 100%;
+  margin-bottom: var(--space-6);
+}
+
+/* Feature list */
+.pricing-features {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  flex: 1;
+}
+
+.pricing-feature {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  font-size: var(--text-sm);
+  line-height: var(--leading-relaxed);
+}
+
+.pricing-feature-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.pricing-feature.included {
+  color: var(--text-primary);
+}
+
+.pricing-feature.included .pricing-feature-icon {
+  color: var(--accent-green);
+}
+
+.pricing-feature.excluded {
+  color: var(--text-tertiary);
+  text-decoration: line-through;
+  text-decoration-color: var(--text-tertiary);
+}
+
+.pricing-feature.excluded .pricing-feature-icon {
+  color: var(--text-tertiary);
+  opacity: 0.5;
+}
+
+.pricing-feature-new {
+  font-size: 10px;
+  font-weight: var(--font-semibold);
+  color: var(--accent-cyan);
+  background: rgba(6, 182, 212, 0.12);
+  padding: 1px 6px;
+  border-radius: var(--radius-full);
+  margin-left: var(--space-1);
+}
+
+/* ── Token Packages Section ──────────────────────────────────── */
+
+.tokens-section {
+  margin-top: var(--space-24);
+  position: relative;
+  z-index: 1;
+}
+
+.tokens-section-header {
+  text-align: center;
+  max-width: 500px;
+  margin: 0 auto var(--space-10);
+}
+
+.tokens-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--space-5);
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.token-card {
+  padding: var(--space-6);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  cursor: pointer;
+  transition: all var(--transition-base);
+}
+
+.token-card:hover {
+  box-shadow: var(--shadow-glow-primary);
+  transform: translateY(-4px);
+}
+
+.token-card.best-value {
+  border-color: var(--accent-amber);
+  position: relative;
+}
+
+.token-card.best-value::before {
+  content: 'Best Value';
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: var(--space-1) var(--space-3);
+  font-size: 10px;
+  font-weight: var(--font-bold);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wider);
+  background: var(--accent-amber);
+  color: var(--text-inverse);
+  border-radius: var(--radius-full);
+  white-space: nowrap;
+}
+
+.token-amount {
+  font-size: var(--text-3xl);
+  font-weight: var(--font-extrabold);
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.token-label {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+
+.token-price {
+  font-size: var(--text-lg);
+  font-weight: var(--font-bold);
+  color: var(--text-primary);
+}
+
+.token-per {
+  font-size: var(--text-xs);
+  color: var(--text-tertiary);
+}
+
+/* ── FAQ Section ─────────────────────────────────────────────── */
+
+.pricing-faq {
+  margin-top: var(--space-24);
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  z-index: 1;
+}
+
+.faq-item {
+  border-bottom: 1px solid var(--border);
+  padding: var(--space-5) 0;
+}
+
+.faq-question {
+  width: 100%;
+  text-align: left;
+  font-size: var(--text-base);
+  font-weight: var(--font-medium);
+  color: var(--text-primary);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-4);
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+.faq-question svg {
+  width: 20px;
+  height: 20px;
+  color: var(--text-tertiary);
+  transition: transform var(--transition-base);
+  flex-shrink: 0;
+}
+
+.faq-question.open svg {
+  transform: rotate(180deg);
+}
+
+.faq-answer {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  line-height: var(--leading-relaxed);
+  padding-top: var(--space-3);
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height var(--transition-slow), padding var(--transition-slow);
+}
+
+.faq-answer.open {
+  max-height: 200px;
+}
+
+/* ── Responsive ──────────────────────────────────────────────── */
+
+@media (max-width: 1024px) {
+  .pricing-grid {
+    max-width: 800px;
+  }
+
+  .pricing-card.popular {
+    transform: scale(1.02);
+  }
+
+  .pricing-card.popular:hover {
+    transform: scale(1.02) translateY(-4px);
+  }
+}
+
+@media (max-width: 768px) {
+  .pricing-container {
+    padding: var(--space-20) var(--space-4) var(--space-12);
+  }
+
+  .pricing-grid {
+    grid-template-columns: 1fr;
+    max-width: 420px;
+  }
+
+  .pricing-card {
+    padding: var(--space-6);
+  }
+
+  .pricing-card.popular {
+    transform: none;
+    order: -1;
+  }
+
+  .pricing-card.popular:hover {
+    transform: translateY(-4px);
+  }
+
+  .tokens-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .pricing-toggle {
+    gap: var(--space-3);
+  }
+
+  .tokens-grid {
+    grid-template-columns: 1fr;
+    max-width: 300px;
+    margin: 0 auto;
+  }
+}
