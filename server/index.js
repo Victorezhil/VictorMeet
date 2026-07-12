@@ -94,9 +94,10 @@ app.post('/api/auth/login', async (req, res) => {
  * No body required.
  * Returns: { token, user }
  */
-app.post('/api/auth/guest', async (_req, res) => {
+app.post('/api/auth/guest', async (req, res) => {
   try {
-    const result = await createGuestSession();
+    const { nickname } = req.body;
+    const result = await createGuestSession(nickname);
     res.status(201).json(result);
   } catch (err) {
     res.status(500).json({ error: err.message });

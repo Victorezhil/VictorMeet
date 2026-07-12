@@ -110,10 +110,11 @@ export async function loginUser(email, password) {
 
 /**
  * Create an anonymous guest session (no email / password required).
+ * @param {string} [customNickname]
  * @returns {Promise<{ token: string, user: object }>}
  */
-export async function createGuestSession() {
-  const nickname = generateNickname();
+export async function createGuestSession(customNickname = null) {
+  const nickname = customNickname ? customNickname.trim() : generateNickname();
 
   const user = await store.addUser({
     nickname,

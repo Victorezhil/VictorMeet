@@ -59,6 +59,12 @@ export function render() {
         <!-- Right Side: Match Options & Formalities -->
         <div class="card" style="padding: var(--space-6); background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: var(--radius-xl); display: flex; flex-direction: column; gap: var(--space-6); box-shadow: var(--shadow-xl);">
           
+          <!-- Username Input -->
+          <div>
+            <label style="font-size: var(--text-sm); font-weight: 600; color: var(--text-primary); display: block; margin-bottom: var(--space-2);">Choose a Username / Nickname</label>
+            <input type="text" id="usernameInput" class="input" placeholder="Enter nickname to start chatting..." style="border-radius: var(--radius-md);" required />
+          </div>
+
           <!-- Interests Box -->
           <div>
             <label style="font-size: var(--text-sm); font-weight: 600; color: var(--text-primary); display: block; margin-bottom: var(--space-2);">What do you want to talk about? (Optional)</label>
@@ -108,6 +114,7 @@ export function render() {
 // ── Mount ─────────────────────────────────────────────────────
 
 export function mount() {
+  const usernameInput = document.getElementById('usernameInput');
   const interestInput = document.getElementById('interestInput');
   const addInterestBtn = document.getElementById('addInterestBtn');
   const interestsContainer = document.getElementById('selectedInterestsContainer');
@@ -170,31 +177,41 @@ export function mount() {
   }
 
   async function checkAuthAndNavigate(mode) {
+    const username = usernameInput ? usernameInput.value.trim() : '';
+
+    if (!username) {
+      alert('Please enter a Username / Nickname to start chatting.');
+      if (usernameInput) usernameInput.focus();
+      return;
+    }
+
     if (!agreeAge.checked || !agreeTerms.checked) {
       alert('Please check both safety agreement boxes before starting.');
       return;
     }
 
     // Start matching process
-    // If not authenticated, do a quick anonymous guest login
-    if (!getState('isAuthenticated')) {
-      try {
-        const res = await fetch('/api/auth/guest', { method: 'POST' });
-        const data = await res.json();
-        if (!res.ok) {
-          alert(data.error || 'Failed to authenticate session.');
-          return;
-        }
-        localStorage.setItem('vm_token', data.token);
-        setState('token', data.token);
-        setState('user', data.user);
-        setState('isAuthenticated', true);
-        initSocket();
-      } catch (err) {
-        console.error('[landing] guest sign-in error:', err);
-        alert('Connection error. Please try again.');
+    // Perform guest login using the provided username
+    try {
+      const res = await fetch('/api/auth/guest', { 
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nickname: username })
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        alert(data.error || 'Failed to authenticate session.');
         return;
       }
+      localStorage.setItem('vm_token', data.token);
+      setState('token', data.token);
+      setState('user', data.user);
+      setState('isAuthenticated', true);
+      initSocket();
+    } catch (err) {
+      console.error('[landing] guest sign-in error:', err);
+      alert('Connection error. Please try again.');
+      return;
     }
 
     // Set routing to chat page
