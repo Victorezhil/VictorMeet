@@ -7,58 +7,58 @@
   /* ── Color Palette ─────────────────────────────────────────── */
 
   /* Backgrounds */
-  --bg-primary: #0B0F1A;
-  --bg-secondary: #111827;
-  --bg-tertiary: #1F2937;
+  --bg-primary: #FFFFFF;
+  --bg-secondary: #F7F7F7;
+  --bg-tertiary: #EDEDED;
 
-  /* Surfaces (glassmorphism layers) */
-  --surface: rgba(255, 255, 255, 0.05);
-  --surface-hover: rgba(255, 255, 255, 0.08);
-  --surface-active: rgba(255, 255, 255, 0.12);
+  /* Surfaces (Omegle layout panels) */
+  --surface: #FFFFFF;
+  --surface-hover: #F0F4F8;
+  --surface-active: #E1E9F0;
 
   /* Borders */
-  --border: rgba(255, 255, 255, 0.1);
-  --border-hover: rgba(255, 255, 255, 0.2);
-  --border-focus: rgba(124, 58, 237, 0.5);
+  --border: #D1D5DB;
+  --border-hover: #9CA3AF;
+  --border-focus: #3B82F6;
 
   /* Text */
-  --text-primary: #F9FAFB;
-  --text-secondary: #9CA3AF;
+  --text-primary: #1F2937;
+  --text-secondary: #4B5563;
   --text-tertiary: #6B7280;
-  --text-inverse: #0B0F1A;
+  --text-inverse: #FFFFFF;
 
-  /* Brand – Primary (Deep Violet) */
-  --primary: #7C3AED;
-  --primary-hover: #6D28D9;
-  --primary-active: #5B21B6;
-  --primary-glow: rgba(124, 58, 237, 0.4);
-  --primary-subtle: rgba(124, 58, 237, 0.15);
+  /* Brand – Primary (Omegle Classic Blue) */
+  --primary: #0066CC;
+  --primary-hover: #0052A3;
+  --primary-active: #003D7A;
+  --primary-glow: rgba(0, 102, 204, 0.25);
+  --primary-subtle: rgba(0, 102, 204, 0.1);
 
-  /* Brand – Secondary (Electric Blue) */
-  --secondary: #3B82F6;
-  --secondary-hover: #2563EB;
-  --secondary-glow: rgba(59, 130, 246, 0.4);
-  --secondary-subtle: rgba(59, 130, 246, 0.15);
+  /* Brand – Secondary (Omegle Classic Orange) */
+  --secondary: #FF6600;
+  --secondary-hover: #E65C00;
+  --secondary-glow: rgba(255, 102, 0, 0.25);
+  --secondary-subtle: rgba(255, 102, 0, 0.1);
 
   /* Accents */
   --accent-cyan: #06B6D4;
-  --accent-cyan-glow: rgba(6, 182, 212, 0.4);
-  --accent-rose: #F43F5E;
-  --accent-rose-glow: rgba(244, 63, 94, 0.4);
+  --accent-cyan-glow: rgba(6, 182, 212, 0.25);
+  --accent-rose: #EF4444;
+  --accent-rose-glow: rgba(239, 68, 68, 0.25);
   --accent-green: #10B981;
-  --accent-green-glow: rgba(16, 185, 129, 0.4);
+  --accent-green-glow: rgba(16, 185, 129, 0.25);
   --accent-amber: #F59E0B;
-  --accent-amber-glow: rgba(245, 158, 11, 0.4);
+  --accent-amber-glow: rgba(245, 158, 11, 0.25);
 
   /* Gradients */
-  --gradient-primary: linear-gradient(135deg, #7C3AED, #3B82F6);
-  --gradient-primary-reverse: linear-gradient(135deg, #3B82F6, #7C3AED);
-  --gradient-hero: linear-gradient(135deg, #0B0F1A 0%, #1a1145 50%, #0B0F1A 100%);
-  --gradient-card: linear-gradient(135deg, rgba(124, 58, 237, 0.1), rgba(59, 130, 246, 0.1));
-  --gradient-glow: linear-gradient(135deg, rgba(124, 58, 237, 0.2), rgba(59, 130, 246, 0.2));
-  --gradient-text: linear-gradient(135deg, #7C3AED, #3B82F6, #06B6D4);
-  --gradient-success: linear-gradient(135deg, #10B981, #06B6D4);
-  --gradient-danger: linear-gradient(135deg, #F43F5E, #E11D48);
+  --gradient-primary: linear-gradient(135deg, #0066CC, #FF6600);
+  --gradient-primary-reverse: linear-gradient(135deg, #FF6600, #0066CC);
+  --gradient-hero: linear-gradient(135deg, #FFFFFF 0%, #F3F4F6 100%);
+  --gradient-card: linear-gradient(135deg, rgba(0, 102, 204, 0.05), rgba(255, 102, 0, 0.05));
+  --gradient-glow: linear-gradient(135deg, rgba(0, 102, 204, 0.1), rgba(255, 102, 0, 0.1));
+  --gradient-text: linear-gradient(135deg, #0066CC, #FF6600);
+  --gradient-success: linear-gradient(135deg, #10B981, #059669);
+  --gradient-danger: linear-gradient(135deg, #EF4444, #DC2626);
 
   /* ── Spacing (4px scale) ───────────────────────────────────── */
   --space-0: 0px;
