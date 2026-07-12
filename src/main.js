@@ -27,10 +27,8 @@ async function init() {
   // ── Restore persisted session ───────────────────────────────
   await loadUserFromStorage();
 
-  // ── Boot socket if the user already has a token ─────────────
-  if (getState('token')) {
-    initSocket();
-  }
+  // ── Boot socket immediately to load real-time online counter ──
+  initSocket();
 
   // ── Start the router (renders the first page) ──────────────
   initRouter();

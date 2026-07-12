@@ -13,14 +13,22 @@ let socket = null;
  * Attaches global event handlers for connection lifecycle and online count.
  * @returns {import('socket.io-client').Socket}
  */
-export function initSocket(nickname) {
-  if (socket && socket.connected) return socket;
+export function initSocket(nickname = null) {
+  const savedName = nickname || localStorage.getItem('vm_username') || 'Stranger';
+
+  if (socket && socket.connected) {
+    if (nickname && socket.auth?.nickname !== nickname) {
+      socket.auth = { nickname };
+      socket.disconnect().connect();
+    }
+    return socket;
+  }
 
   const isProduction = window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1';
   const backendUrl = isProduction ? 'https://victormeet-1.onrender.com' : '/';
 
   socket = io(backendUrl, {
-    auth: { nickname },
+    auth: { nickname: savedName },
     transports: ['websocket', 'polling'],
     reconnectionAttempts: 10,
     reconnectionDelay: 1000,
