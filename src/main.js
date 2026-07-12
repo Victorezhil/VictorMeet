@@ -5,6 +5,7 @@
 import { initRouter, registerRoute, navigate } from './router.js';
 import { loadUserFromStorage, getState } from './state.js';
 import { initSocket } from './socket.js';
+import { injectSpeedInsights } from '@vercel/speed-insights';
 
 import * as landing from './pages/landing.js';
 import * as auth from './pages/auth.js';
@@ -17,6 +18,9 @@ import * as terms from './pages/terms.js';
 import * as privacy from './pages/privacy.js';
 
 async function init() {
+  // ── Initialize Vercel Speed Insights ────────────────────────
+  injectSpeedInsights();
+
   // ── Register all routes ─────────────────────────────────────
   registerRoute('/landing', landing);
   registerRoute('/auth', auth);
