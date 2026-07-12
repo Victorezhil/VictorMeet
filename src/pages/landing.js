@@ -5,6 +5,7 @@
 import { getState, setState, subscribe } from '../state.js';
 import { navigate } from '../router.js';
 import { initSocket } from '../socket.js';
+import { openDonateModal } from './donate.js';
 
 let unsubs = [];
 
@@ -20,8 +21,11 @@ export function render() {
         <a href="#/landing" class="nav-logo" style="font-size: 36px; font-weight: 900; text-decoration: none;">
           <span style="color: var(--primary);">Victor</span><span style="color: var(--secondary);">Meet</span>
         </a>
-        <div style="font-size: var(--text-sm); color: var(--text-secondary); font-weight: 500;">
-          Talk to Strangers!
+        <div style="display: flex; align-items: center; gap: var(--space-4);">
+          <div style="font-size: var(--text-sm); color: var(--text-secondary); font-weight: 500;">
+            Talk to Strangers!
+          </div>
+          <button id="donateBtn" class="btn" style="background: #28a745; color: #FFF; font-size: 13px; font-weight: 800; padding: var(--space-1.5) var(--space-4); border-radius: var(--radius-full); cursor: pointer; border: none; box-shadow: 0 2px 4px rgba(40,167,69,0.2);">❤️ Donate</button>
         </div>
       </nav>
 
@@ -90,7 +94,7 @@ export function render() {
             
             <label style="display: flex; gap: var(--space-2.5); font-size: 12px; color: var(--text-secondary); cursor: pointer; align-items: flex-start; margin: 0; user-select: none;">
               <input type="checkbox" id="agreeTerms" style="margin-top: 2px; cursor: pointer;" />
-              <span>I accept VictorMeet's <a href="#/settings" style="color: var(--primary); text-decoration: none; font-weight: 500;">Terms</a> &amp; <a href="#/settings" style="color: var(--primary); text-decoration: none; font-weight: 500;">Privacy Policy</a>.</span>
+              <span>I accept VictorMeet's <a href="#/terms" style="color: var(--primary); text-decoration: none; font-weight: 500;">Terms</a> &amp; <a href="#/privacy" style="color: var(--primary); text-decoration: none; font-weight: 500;">Privacy Policy</a>.</span>
             </label>
           </div>
 
@@ -188,6 +192,11 @@ export function mount() {
         setState('callState', 'queued');
       }
     }, 200);
+  }
+
+  const donateBtn = document.getElementById('donateBtn');
+  if (donateBtn) {
+    donateBtn.addEventListener('click', openDonateModal);
   }
 
   if (startTextBtn) {

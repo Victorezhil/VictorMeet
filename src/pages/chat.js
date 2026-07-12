@@ -18,6 +18,7 @@ import {
   stopLocalStream,
   changeVideoSource,
 } from '../webrtc.js';
+import { openDonateModal } from './donate.js';
 
 let socketHandlers = {};
 let unsubs = [];
@@ -37,8 +38,11 @@ export function render() {
           </a>
           <span style="font-size: 13px; color: var(--text-secondary); font-weight: 500;">Talk to Strangers!</span>
         </div>
-        <div style="font-size: 13px; color: var(--text-secondary); font-weight: 500;">
-          <span id="onlineCountStatHeader">0</span> users online
+        <div style="display: flex; align-items: center; gap: var(--space-4);">
+          <div style="font-size: 13px; color: var(--text-secondary); font-weight: 500;">
+            <span id="onlineCountStatHeader">0</span> users online
+          </div>
+          <button id="donateBtn" class="btn" style="background: #28a745; color: #FFF; font-size: 12px; font-weight: 800; padding: 4px var(--space-3.5); border-radius: var(--radius-full); cursor: pointer; border: none; box-shadow: 0 2px 4px rgba(40,167,69,0.2);">❤️ Donate</button>
         </div>
       </div>
 
@@ -399,6 +403,12 @@ export function mount() {
         }
       }
     });
+  }
+
+  // Donate Button Handler
+  const donateBtn = document.getElementById('donateBtn');
+  if (donateBtn) {
+    donateBtn.addEventListener('click', openDonateModal);
   }
 
   // Mute audio

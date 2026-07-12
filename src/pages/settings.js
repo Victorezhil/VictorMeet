@@ -57,10 +57,10 @@ export function render() {
       <div class="card settings-section">
         <h3>🔒 Privacy</h3>
         <p>
-          <a href="#" class="link" id="privacyPolicyLink">Privacy Policy</a>
+          <a href="#/privacy" class="link" style="text-decoration:none; font-weight:600; color:var(--primary);">Privacy Policy</a>
         </p>
         <p>
-          <a href="#" class="link" id="tosLink">Terms of Service</a>
+          <a href="#/terms" class="link" style="text-decoration:none; font-weight:600; color:var(--primary);">Terms of Service</a>
         </p>
       </div>
 

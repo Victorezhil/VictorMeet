@@ -13,6 +13,8 @@ import * as profile from './pages/profile.js';
 import * as pricing from './pages/pricing.js';
 import * as settings from './pages/settings.js';
 import * as report from './pages/report.js';
+import * as terms from './pages/terms.js';
+import * as privacy from './pages/privacy.js';
 
 async function init() {
   // ── Register all routes ─────────────────────────────────────
@@ -23,6 +25,8 @@ async function init() {
   registerRoute('/pricing', pricing);
   registerRoute('/settings', settings);
   registerRoute('/report', report);
+  registerRoute('/terms', terms);
+  registerRoute('/privacy', privacy);
 
   // ── Restore persisted session ───────────────────────────────
   await loadUserFromStorage();
