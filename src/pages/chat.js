@@ -40,10 +40,13 @@ export function render() {
       </div>
 
       <!-- Top Ad Banner -->
-      <div class="ad-top-banner" style="background: var(--bg-secondary); border-bottom: 1px solid var(--border); padding: var(--space-2) var(--space-6); display: flex; align-items: center; justify-content: center; gap: var(--space-4); flex-shrink: 0; min-height: 40px; box-sizing: border-box; width: 100%;">
-        <span style="font-size: 9px; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: var(--tracking-wider); font-weight: 600;">Advertisement</span>
-        <span style="font-size: 12px; color: var(--text-secondary); text-align: center;">💬 <strong>VictorMeet Premium:</strong> Connect with users by gender &amp; region! Get 50% off today.</span>
-        <a href="#/pricing" class="btn btn-primary" style="font-size: 10px; padding: 4px var(--space-3); text-decoration: none; border-radius: var(--radius-sm); font-weight: 700;">Upgrade Now</a>
+      <div class="ad-top-banner" style="background: var(--bg-secondary); border-bottom: 1px solid var(--border); padding: var(--space-1) var(--space-6); display: flex; align-items: center; justify-content: center; flex-shrink: 0; min-height: 50px; box-sizing: border-box; width: 100%;">
+        <ins class="adsbygoogle"
+             style="display:block; width:100%; min-height:50px;"
+             data-ad-client="ca-pub-3286584236618316"
+             data-ad-slot="2000000001"
+             data-ad-format="horizontal"
+             data-full-width-responsive="true"></ins>
       </div>
 
       <!-- Classic Work Area -->
@@ -114,10 +117,13 @@ export function render() {
       </div>
 
       <!-- Bottom Ad Banner -->
-      <div class="ad-bottom-banner" style="background: var(--bg-secondary); border-top: 1px solid var(--border); padding: var(--space-2) var(--space-6); display: flex; align-items: center; justify-content: center; gap: var(--space-4); flex-shrink: 0; min-height: 40px; box-sizing: border-box; width: 100%;">
-        <span style="font-size: 9px; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: var(--tracking-wider); font-weight: 600;">Sponsored</span>
-        <span style="font-size: 12px; color: var(--text-secondary); text-align: center;">🎮 <strong>Apex Host:</strong> High-performance game servers starting at $4.99/mo. Get 10% off with code MEET.</span>
-        <a href="https://github.com" target="_blank" class="btn btn-secondary" style="font-size: 10px; padding: 4px var(--space-3); text-decoration: none; border-radius: var(--radius-sm); font-weight: 700; color: var(--text-primary); border: 1px solid var(--border);">Learn More</a>
+      <div class="ad-bottom-banner" style="background: var(--bg-secondary); border-top: 1px solid var(--border); padding: var(--space-1) var(--space-6); display: flex; align-items: center; justify-content: center; flex-shrink: 0; min-height: 50px; box-sizing: border-box; width: 100%;">
+        <ins class="adsbygoogle"
+             style="display:block; width:100%; min-height:50px;"
+             data-ad-client="ca-pub-3286584236618316"
+             data-ad-slot="2000000002"
+             data-ad-format="horizontal"
+             data-full-width-responsive="true"></ins>
       </div>
     </div>
   `;
@@ -385,6 +391,14 @@ export function mount() {
         sendMessage();
       }
     });
+  }
+
+  // Trigger AdSense ad loading (two ads on this page)
+  try {
+    (window.adsbygoogle = window.adsbygoogle || []).push({});
+    (window.adsbygoogle = window.adsbygoogle || []).push({});
+  } catch (e) {
+    console.warn('[AdSense] Load error:', e);
   }
 }
 

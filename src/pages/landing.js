@@ -54,12 +54,14 @@ export function render() {
             </span>
           </div>
 
-          <!-- VPN Ad -->
-          <div class="card" style="padding: var(--space-4); background: rgba(255,255,255,0.01); border-color: var(--border); margin-top: var(--space-2);">
-            <span style="font-size: 10px; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: var(--tracking-wider);">Sponsored</span>
-            <div style="font-size: 13px; color: var(--text-secondary); margin-top: var(--space-1.5); display: flex; align-items: center; gap: var(--space-2);">
-              <span>🛡️</span> <span><strong>SurfTunnel VPN:</strong> Encrypt your chat sessions and secure your location metadata.</span>
-            </div>
+          <!-- AdSense Ad -->
+          <div class="card" style="padding: var(--space-4); background: rgba(255,255,255,0.01); border-color: var(--border); margin-top: var(--space-2); min-height: 100px; display: flex; align-items: center; justify-content: center; overflow: hidden; width: 100%;">
+            <ins class="adsbygoogle"
+                 style="display:block; width:100%; min-height:90px;"
+                 data-ad-client="ca-pub-3286584236618316"
+                 data-ad-slot="1000000001"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
           </div>
         </div>
 
@@ -258,6 +260,13 @@ export function mount() {
       countEl.textContent = count;
     });
     unsubs.push(unsub);
+  }
+
+  // Trigger AdSense ad loading
+  try {
+    (window.adsbygoogle = window.adsbygoogle || []).push({});
+  } catch (e) {
+    console.warn('[AdSense] Load error:', e);
   }
 }
 
