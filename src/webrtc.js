@@ -213,3 +213,46 @@ export function stopLocalStream() {
 export function getLocalStreamRef() {
   return localStream;
 }
+
+/**
+ * Live switch the active video track using the selected deviceId.
+ * Replaces the track on the active WebRTC peer connection sender dynamically.
+ * @param {string} deviceId
+ */
+export async function changeVideoSource(deviceId) {
+  if (!localStream) return;
+
+  // Stop old video tracks
+  const oldTracks = localStream.getVideoTracks();
+  oldTracks.forEach((track) => track.stop());
+
+  // Get new stream with exact device constraint
+  const newStream = await navigator.mediaDevices.getUserMedia({
+    video: { deviceId: { exact: deviceId } },
+    audio: true,
+  });
+
+  const newVideoTrack = newStream.getVideoTracks()[0];
+
+  // Update local stream and rendering
+  const oldVideoTrack = localStream.getVideoTracks()[0];
+  if (oldVideoTrack) {
+    localStream.removeTrack(oldVideoTrack);
+  }
+  localStream.addTrack(newVideoTrack);
+
+  if (localVideoEl) {
+    localVideoEl.srcObject = localStream;
+  }
+
+  // Replace track on the running peer connection sender
+  if (peerConnection) {
+    const senders = peerConnection.getSenders();
+    const videoSender = senders.find((s) => s.track && s.track.kind === 'video');
+    if (videoSender) {
+      await videoSender.replaceTrack(newVideoTrack);
+      console.log('[webrtc] Video source successfully replaced on RTCPeerConnection.');
+    }
+  }
+}
+

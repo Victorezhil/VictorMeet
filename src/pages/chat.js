@@ -16,6 +16,7 @@ import {
   toggleVideo,
   closePeerConnection,
   stopLocalStream,
+  changeVideoSource,
 } from '../webrtc.js';
 
 let socketHandlers = {};
@@ -79,6 +80,14 @@ export function render() {
             <div style="position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.6); padding: 2px 8px; border-radius: var(--radius-full); font-size: 11px; font-weight: 800; color: #fff; z-index: 10; text-transform: uppercase; letter-spacing: 0.5px;">You</div>
           </div>
 
+          <!-- Camera Selector Dropdown (OBS Studio camera support) -->
+          <div style="width: 100%; display: flex; flex-direction: column; align-items: center; gap: 4px; margin-top: var(--space-4); flex-shrink: 0;">
+            <label style="font-size: 10px; font-weight: 800; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px;">Select Camera Source:</label>
+            <select id="cameraSelect" style="background: #FFF; border: 1px solid var(--border); border-radius: var(--radius-md); padding: 4px 12px; font-size: 11px; font-weight: bold; color: var(--text-primary); cursor: pointer; max-width: 250px; outline: none; width: 80%;">
+              <option value="">Detecting cameras...</option>
+            </select>
+          </div>
+
         </div>
 
         <!-- Right Column: Text Chat Area -->
@@ -140,13 +149,58 @@ export function mount() {
   const sendMsgBtn = document.getElementById('sendMsgBtn');
   const classicStopBtn = document.getElementById('classicStopBtn');
   const countHeaderEl = document.getElementById('onlineCountStatHeader');
+  const cameraSelect = document.getElementById('cameraSelect');
 
   setVideoElements(localVideo, remoteVideo);
+
+  // Populate camera list for OBS Studio and other camera supports
+  if (navigator.mediaDevices && navigator.mediaDevices.enumerateDevices) {
+    navigator.mediaDevices.enumerateDevices()
+      .then((devices) => {
+        const videoDevices = devices.filter((d) => d.kind === 'videoinput');
+        if (cameraSelect) {
+          cameraSelect.innerHTML = videoDevices
+            .map((d, i) => `<option value="${d.deviceId}">${d.label || `Camera ${i + 1}`}</option>`)
+            .join('');
+          if (videoDevices.length === 0) {
+            cameraSelect.innerHTML = '<option value="">No cameras detected</option>';
+          }
+        }
+      })
+      .catch((err) => console.error('[chat] enumerateDevices error:', err));
+  }
+
+  // Handle camera switch selection
+  if (cameraSelect) {
+    cameraSelect.addEventListener('change', async (e) => {
+      const deviceId = e.target.value;
+      if (deviceId) {
+        try {
+          await changeVideoSource(deviceId);
+          console.log('[chat] Camera swapped successfully to device:', deviceId);
+        } catch (err) {
+          console.error('[chat] changeVideoSource error:', err);
+          appendSystemMessage('System: Failed to switch camera source.');
+        }
+      }
+    });
+  }
 
   // Acquire local media
   getLocalStream()
     .then(() => {
       console.log('[chat] local stream acquired');
+      // Re-trigger enumerate devices after user grants permission to get actual labels (OBS, etc.)
+      if (navigator.mediaDevices && navigator.mediaDevices.enumerateDevices) {
+        navigator.mediaDevices.enumerateDevices().then((devices) => {
+          const videoDevices = devices.filter((d) => d.kind === 'videoinput');
+          if (cameraSelect && videoDevices.length > 0) {
+            cameraSelect.innerHTML = videoDevices
+              .map((d, i) => `<option value="${d.deviceId}">${d.label || `Camera ${i + 1}`}</option>`)
+              .join('');
+          }
+        });
+      }
     })
     .catch((err) => {
       console.error('[chat] getUserMedia error:', err);
