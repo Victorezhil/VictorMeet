@@ -59,22 +59,23 @@ export function render() {
              data-ad-slot="2740597990"></ins>
       </div>
 
-      <!-- Classic Work Area -->
-      <div class="chat-main-classic" style="display: flex; flex: 1; min-height: 0; overflow: hidden; background: var(--bg-primary); width: 100%;">
+      <!-- Classic Work Area (Umingle layout) -->
+      <div class="chat-main-classic" style="display: flex; flex-direction: column; flex: 1; min-height: 0; background: var(--bg-secondary); width: 100%; padding: var(--space-4); box-sizing: border-box; overflow-y: auto;">
         
-        <!-- Left Column: Classic Stacked Videos (Stranger & You) -->
-        <div class="video-container-classic" style="display: flex; flex-direction: column; width: 45%; background: var(--bg-secondary); box-sizing: border-box; border-right: 1px solid var(--border);">
+        <!-- Top Row: Videos side by side -->
+        <div class="umingle-videos-row" style="display: flex; flex-direction: row; justify-content: center; gap: var(--space-4); width: 100%; max-width: 1400px; margin: 0 auto;">
           
           <!-- Stranger Video Box -->
-          <div class="video-box-wrapper stranger" style="flex: 1; position: relative; border-bottom: 1px solid var(--border); overflow: hidden; background: var(--bg-tertiary); display: flex; align-items: center; justify-content: center;">
+          <div class="video-box-wrapper stranger" style="flex: 1; max-width: 650px; aspect-ratio: 4/3; position: relative; border-radius: var(--radius-lg); overflow: hidden; background: #111; box-shadow: var(--shadow-md);">
             <video id="remoteVideo" autoplay playsinline style="width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; background: #000;"></video>
             
-            <!-- Label -->
-            <div style="position: absolute; bottom: 10px; left: 10px; background: rgba(0,0,0,0.5); padding: 4px 8px; border-radius: 4px; font-size: 13px; font-weight: bold; color: #FFF; z-index: 10;">Stranger</div>
+            <div style="position: absolute; bottom: 12px; left: 16px; font-size: 18px; font-weight: 800; color: rgba(255,255,255,0.7); z-index: 10; letter-spacing: -0.5px;">
+              VictorMeet.com
+            </div>
             
             <!-- Video Placeholder -->
-            <div id="videoPlaceholder" style="position: absolute; inset: 0; background: var(--bg-tertiary); display: flex; align-items: center; justify-content: center; z-index: 5;">
-              <div style="color: var(--text-secondary); font-size: 14px; font-weight: bold; text-transform: uppercase;">Stranger</div>
+            <div id="videoPlaceholder" style="position: absolute; inset: 0; background: #1a1a1a; display: flex; align-items: center; justify-content: center; z-index: 5;">
+              <div style="color: #666; font-size: 14px; font-weight: bold; text-transform: uppercase;">Stranger</div>
             </div>
             
             <!-- Matching Overlay -->
@@ -85,53 +86,53 @@ export function render() {
           </div>
 
           <!-- Local Video Box -->
-          <div class="video-box-wrapper you" style="flex: 1; position: relative; overflow: hidden; background: var(--bg-tertiary); display: flex; align-items: center; justify-content: center;">
+          <div class="video-box-wrapper you" style="flex: 1; max-width: 650px; aspect-ratio: 4/3; position: relative; border-radius: var(--radius-lg); overflow: hidden; background: #111; box-shadow: var(--shadow-md);">
             <video id="localVideo" autoplay playsinline muted style="transform: scaleX(-1); width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; background: #000;"></video>
-            <!-- Label -->
-            <div style="position: absolute; bottom: 10px; left: 10px; background: rgba(0,0,0,0.5); padding: 4px 8px; border-radius: 4px; font-size: 13px; font-weight: bold; color: #FFF; z-index: 10;">You</div>
+            <div style="position: absolute; bottom: 12px; right: 16px; background: rgba(0,0,0,0.5); padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; color: #FFF; z-index: 10;">You</div>
           </div>
+        </div>
 
-          <!-- Media Controls & Camera Selector -->
-          <div style="padding: 10px; background: var(--bg-secondary); display: flex; flex-direction: column; gap: 8px;">
-            <div style="display: flex; gap: 10px; justify-content: center;">
-              <button id="muteBtn" style="flex: 1; padding: 8px; font-size: 12px; font-weight: 700; background: var(--surface); color: var(--text-primary); border: 1px solid var(--border); border-radius: var(--radius-md); cursor: pointer; transition: all 0.15s;">🎤 Mute</button>
-              <button id="videoToggleBtn" style="flex: 1; padding: 8px; font-size: 12px; font-weight: 700; background: var(--surface); color: var(--text-primary); border: 1px solid var(--border); border-radius: var(--radius-md); cursor: pointer; transition: all 0.15s;">📹 Camera</button>
-            </div>
-            <div style="display: flex; align-items: center; gap: 8px;">
-              <label style="font-size: 11px; font-weight: bold; color: var(--text-secondary); text-transform: uppercase; white-space: nowrap;">Camera:</label>
-              <select id="cameraSelect" style="flex: 1; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 6px; font-size: 12px; font-weight: bold; color: var(--text-primary); cursor: pointer; outline: none; appearance: auto;">
+        <!-- Bottom Row: Controls & Chat -->
+        <div class="umingle-bottom-row" style="display: flex; flex-direction: row; justify-content: center; gap: var(--space-4); width: 100%; max-width: 1400px; margin: var(--space-4) auto 0; flex: 1; min-height: 250px;">
+          
+          <!-- Left Info & Controls -->
+          <div class="umingle-controls-col" style="flex: 1; max-width: 650px; display: flex; flex-direction: column; background: var(--bg-primary); border-radius: var(--radius-lg); padding: var(--space-4); box-shadow: var(--shadow-sm); box-sizing: border-box;">
+            <h3 style="margin: 0 0 8px 0; color: var(--text-primary); font-size: 18px; font-weight: 700;">Welcome to VictorMeet.</h3>
+            <div style="color: var(--accent-rose); font-size: 14px; font-weight: 600; margin-bottom: 4px;">🔞 You must be 18+</div>
+            <div style="color: var(--text-secondary); font-size: 14px; margin-bottom: var(--space-4);">No nudity, hate speech, or harassment</div>
+            
+            <button class="btn" id="classicStopBtn" style="width: 120px; height: 50px; font-size: 18px; font-weight: 700; background: #8B5CF6; color: #fff; border-radius: var(--radius-md); border: none; cursor: pointer; transition: all 0.15s; margin-top: auto;">
+              Start<br><span style="font-size: 11px; font-weight: normal;">Esc</span>
+            </button>
+
+            <!-- Media Controls & Camera Selector tucked below -->
+            <div style="display: flex; gap: 10px; margin-top: var(--space-4); align-items: center; border-top: 1px solid var(--border); padding-top: var(--space-3);">
+              <button id="muteBtn" style="padding: 6px 12px; font-size: 12px; font-weight: 700; background: var(--surface); color: var(--text-primary); border: 1px solid var(--border); border-radius: var(--radius-md); cursor: pointer;">🎤 Mute</button>
+              <button id="videoToggleBtn" style="padding: 6px 12px; font-size: 12px; font-weight: 700; background: var(--surface); color: var(--text-primary); border: 1px solid var(--border); border-radius: var(--radius-md); cursor: pointer;">📹 Camera</button>
+              <select id="cameraSelect" style="flex: 1; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 6px; font-size: 12px; font-weight: bold; color: var(--text-primary); cursor: pointer; outline: none; appearance: auto; max-width: 200px;">
                 <option value="">${t.detectingCameras}</option>
               </select>
             </div>
           </div>
-        </div>
 
-        <!-- Right Column: Text Chat Area -->
-        <div class="chat-container-classic" style="width: 52%; display: flex; flex-direction: column; background: var(--bg-secondary); position: relative; height: 100%; border-left: 1px solid var(--border);">
-          
-          <!-- Chat message logs -->
-          <div id="chatMessages" style="flex: 1; overflow-y: auto; padding: var(--space-4); display: flex; flex-direction: column; gap: var(--space-2.5); font-size: 14.5px; font-family: Arial, sans-serif; line-height: 1.4; border-bottom: 1px solid var(--border); background: var(--bg-primary);">
-            <div style="color: var(--text-secondary); font-weight: bold; font-size: 13.5px;">${t.systemWelcome}</div>
-          </div>
-
-          <!-- Connection Status indicator -->
-          <div id="connectionStatus" style="padding: 6px var(--space-4); font-size: 13px; font-weight: 600; color: var(--text-secondary); background: var(--bg-tertiary); flex-shrink: 0; min-height: 28px; border-bottom: 1px solid var(--border); display: flex; align-items: center;"></div>
-
-          <!-- Controls Area (Stop / Input / Send) -->
-          <div style="display: flex; padding: var(--space-3); border-top: 1px solid var(--border); background: var(--bg-secondary); gap: var(--space-3); align-items: center; flex-shrink: 0; min-height: 70px; box-sizing: border-box;">
+          <!-- Right Chat Area -->
+          <div class="umingle-chat-col" style="flex: 1; max-width: 650px; display: flex; flex-direction: column; background: var(--bg-primary); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-sm); border: 1px solid var(--border);">
             
-            <!-- Big Stop/Next Button -->
-            <button class="btn" id="classicStopBtn" style="width: 110px; height: 46px; font-size: 16px; font-weight: 800; background-color: var(--primary); background: var(--gradient-primary); color: #fff; border-radius: var(--radius-md); border: none; cursor: pointer; transition: all 0.1s;">
-              ${t.startBtn}
-            </button>
+            <!-- Connection Status -->
+            <div id="connectionStatus" style="padding: 8px var(--space-4); font-size: 13px; font-weight: 600; color: var(--text-secondary); background: var(--bg-secondary); border-bottom: 1px solid var(--border);"></div>
 
-            <!-- Chat Input field -->
-            <textarea id="chatInput" placeholder="${t.placeholderMsg}" style="flex: 1; height: 46px; background: var(--bg-tertiary); border: 1px solid var(--border); border-radius: var(--radius-md); color: var(--text-primary); padding: var(--space-2) var(--space-3); resize: none; font-size: 14px; font-family: Arial, sans-serif; box-sizing: border-box;" disabled></textarea>
+            <!-- Chat Logs -->
+            <div id="chatMessages" style="flex: 1; overflow-y: auto; padding: var(--space-4); display: flex; flex-direction: column; gap: var(--space-2.5); font-size: 14.5px; font-family: Arial, sans-serif; line-height: 1.4;">
+              <div style="color: var(--text-secondary); font-weight: bold; font-size: 13.5px;">${t.systemWelcome}</div>
+            </div>
 
-            <!-- Send Button -->
-            <button class="btn btn-primary" id="sendMsgBtn" style="width: 80px; height: 46px; font-size: 15px; font-weight: 800; border-radius: var(--radius-md); background-color: var(--primary); background: var(--gradient-primary); border: none; cursor: pointer;" disabled>
-              ${t.sendBtn}
-            </button>
+            <!-- Chat Input Row -->
+            <div style="display: flex; padding: var(--space-3); border-top: 1px solid var(--border); background: var(--bg-secondary); gap: var(--space-3); align-items: center;">
+              <textarea id="chatInput" placeholder="${t.placeholderMsg}" style="flex: 1; height: 46px; background: var(--bg-primary); border: 1px solid var(--border); border-radius: var(--radius-md); color: var(--text-primary); padding: var(--space-2) var(--space-3); resize: none; font-size: 14px; box-sizing: border-box;" disabled></textarea>
+              <button class="btn btn-primary" id="sendMsgBtn" style="width: 80px; height: 46px; font-size: 15px; font-weight: 800; border-radius: var(--radius-md); background: #8B5CF6; border: none; cursor: pointer; color: #FFF;" disabled>
+                ${t.sendBtn}
+              </button>
+            </div>
           </div>
 
         </div>

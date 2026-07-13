@@ -819,36 +819,34 @@
   object-fit: cover;
 }
 
-/* ── Mobile Layout Auto-Adjustment overrides ──────────────────── */
+/* ── Mobile Layout Auto-Adjustment overrides (Umingle style) ──────────────────── */
 @media (max-width: 768px) {
   .chat-main-classic {
-    flex-direction: column !important;
+    padding: var(--space-2) !important;
   }
   
-  .video-container-classic {
-    width: 100% !important;
-    height: 40vh !important;
-    min-height: 250px !important;
-    flex-direction: row !important;
-    border-right: none !important;
-    border-bottom: 1px solid var(--border) !important;
+  .umingle-videos-row {
+    flex-direction: column !important;
+    gap: var(--space-2) !important;
   }
 
   .video-box-wrapper {
-    flex: 1 !important;
-    height: 100% !important;
-    border-bottom: none !important;
-    border-right: 1px solid #000 !important;
+    max-width: 100% !important;
+    aspect-ratio: 4/3 !important;
   }
 
-  .chat-container-classic {
-    width: 100% !important;
-    height: 60vh !important;
-    border-left: none !important;
+  .umingle-bottom-row {
+    flex-direction: column !important;
+    gap: var(--space-2) !important;
+    margin-top: var(--space-2) !important;
   }
 
-  .video-circle-wrapper #videoPlaceholder {
-    font-size: 11px !important;
+  .umingle-controls-col, .umingle-chat-col {
+    max-width: 100% !important;
+  }
+  
+  .umingle-chat-col {
+    min-height: 350px !important;
   }
 
   .video-circle-wrapper #matchingOverlay {
