@@ -5,6 +5,9 @@
 const ICE_SERVERS = [
   { urls: 'stun:stun.l.google.com:19302' },
   { urls: 'stun:stun1.l.google.com:19302' },
+  { urls: 'stun:stun2.l.google.com:19302' },
+  { urls: 'stun:stun3.l.google.com:19302' },
+  { urls: 'stun:stun4.l.google.com:19302' },
 ];
 
 /** @type {RTCPeerConnection | null} */
@@ -98,6 +101,32 @@ export function createPeerConnection(socket, roomId) {
 
 // ── Offer / Answer ───────────────────────────────────────────
 
+let candidatesQueue = [];
+
+/**
+ * Process any buffered ICE candidates once remote description is set.
+ */
+async function processQueue() {
+  if (peerConnection && peerConnection.remoteDescription) {
+    while (candidatesQueue.length > 0) {
+      const candidate = candidatesQueue.shift();
+      try {
+        await peerConnection.addIceCandidate(new RTCIceCandidate(candidate));
+        console.log('[webrtc] Successfully applied queued ICE candidate');
+      } catch (e) {
+        console.warn('[webrtc] Error applying queued ICE candidate:', e);
+      }
+    }
+  }
+}
+
+/**
+ * Clear the candidate buffer queue.
+ */
+export function clearQueue() {
+  candidatesQueue = [];
+}
+
 /**
  * Create an SDP offer and send it through the signaling server.
  * @param {import('socket.io-client').Socket} socket
@@ -105,6 +134,7 @@ export function createPeerConnection(socket, roomId) {
  * @returns {Promise<RTCPeerConnection>}
  */
 export async function createOffer(socket, roomId) {
+  clearQueue();
   const pc = createPeerConnection(socket, roomId);
   const offer = await pc.createOffer();
   await pc.setLocalDescription(offer);
@@ -121,8 +151,10 @@ export async function createOffer(socket, roomId) {
  * @returns {Promise<RTCPeerConnection>}
  */
 export async function handleOffer(socket, roomId, offer) {
+  clearQueue();
   const pc = createPeerConnection(socket, roomId);
   await pc.setRemoteDescription(new RTCSessionDescription(offer));
+  await processQueue(); // Process any candidates received early
   const answer = await pc.createAnswer();
   await pc.setLocalDescription(answer);
   socket.emit('answer', { roomId, answer });
@@ -136,6 +168,7 @@ export async function handleOffer(socket, roomId, offer) {
 export async function handleAnswer(answer) {
   if (peerConnection) {
     await peerConnection.setRemoteDescription(new RTCSessionDescription(answer));
+    await processQueue(); // Process any candidates received early
   }
 }
 
@@ -144,8 +177,15 @@ export async function handleAnswer(answer) {
  * @param {RTCIceCandidateInit} candidate
  */
 export async function handleIceCandidate(candidate) {
-  if (peerConnection) {
-    await peerConnection.addIceCandidate(new RTCIceCandidate(candidate));
+  if (peerConnection && peerConnection.remoteDescription) {
+    try {
+      await peerConnection.addIceCandidate(new RTCIceCandidate(candidate));
+    } catch (e) {
+      console.warn('[webrtc] Error adding direct ICE candidate:', e);
+    }
+  } else {
+    candidatesQueue.push(candidate);
+    console.log('[webrtc] Buffered early ICE candidate');
   }
 }
 
