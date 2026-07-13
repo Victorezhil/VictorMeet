@@ -152,14 +152,14 @@ export function render() {
             </div>
           </div>
 
-          <!-- Ad Unit 2 (Google AdSense inside Form Box) -->
+          <!-- Ad Unit 2 (Google AdSense inside Form Box - In-feed fluid unit) -->
           <div style="border-top: 1px solid var(--border); padding-top: var(--space-4); margin-top: var(--space-2); min-height: 100px; display: flex; align-items: center; justify-content: center; overflow: hidden; width: 100%;">
             <ins class="adsbygoogle"
-                 style="display:block; width:100%; min-height:90px;"
+                 style="display:block"
+                 data-ad-format="fluid"
+                 data-ad-layout-key="-6t+ed+2i-1n-4w"
                  data-ad-client="ca-pub-9747982919206794"
-                 data-ad-slot="1000000002"
-                 data-ad-format="auto"
-                 data-full-width-responsive="true"></ins>
+                 data-ad-slot="9470226099"></ins>
           </div>
           
         </div>
