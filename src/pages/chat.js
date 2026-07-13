@@ -62,54 +62,48 @@ export function render() {
       <!-- Classic Work Area -->
       <div class="chat-main-classic" style="display: flex; flex: 1; min-height: 0; overflow: hidden; background: var(--bg-primary); width: 100%;">
         
-        <!-- Left Column: Circular Videos (Stranger & You) -->
-        <div class="video-container-classic" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--space-4); box-sizing: border-box;">
+        <!-- Left Column: Classic Stacked Videos (Stranger & You) -->
+        <div class="video-container-classic" style="display: flex; flex-direction: column; width: 45%; background: #000; box-sizing: border-box; border-right: 1px solid var(--border);">
           
-          <div style="display: flex; flex-direction: column; align-items: center;">
-            <!-- Stranger Video Circle -->
-            <div class="video-circle-wrapper stranger">
-              <video id="remoteVideo" autoplay playsinline></video>
-              
-              <!-- Video Placeholder / Matching Overlay -->
-              <div id="videoPlaceholder" style="position: absolute; inset: 0; background: rgba(0,0,0,0.85); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 5;">
-                <div style="font-size: 28px; margin-bottom: 4px;">📹</div>
-                <div style="font-size: 12px; color: #FFF; font-weight: bold; text-align: center; text-transform: uppercase; letter-spacing: 0.5px;">Stranger</div>
-              </div>
-              
-              <div id="matchingOverlay" style="position: absolute; inset: 0; background: rgba(0,0,0,0.9); display: none; flex-direction: column; align-items: center; justify-content: center; z-index: 6; gap: 8px;">
-                <div class="matching-spinner" style="width: 32px; height: 32px; border: 3px solid rgba(255,255,255,0.2); border-top-color: var(--secondary); border-radius: 50%; animation: spin 1s linear infinite;"></div>
-                <div style="font-size: 11px; color: #FFF; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">${t.matchingOverlayText}</div>
-              </div>
+          <!-- Stranger Video Box -->
+          <div class="video-box-wrapper stranger" style="flex: 1; position: relative; border-bottom: 2px solid var(--bg-primary); overflow: hidden; background: #111; display: flex; align-items: center; justify-content: center;">
+            <video id="remoteVideo" autoplay playsinline style="width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0;"></video>
+            
+            <!-- Label -->
+            <div style="position: absolute; bottom: 10px; left: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 13px; font-weight: bold; color: #FFF; z-index: 10;">Stranger</div>
+            
+            <!-- Video Placeholder -->
+            <div id="videoPlaceholder" style="position: absolute; inset: 0; background: #111; display: flex; align-items: center; justify-content: center; z-index: 5;">
+              <div style="color: #666; font-size: 14px; font-weight: bold; text-transform: uppercase;">Stranger</div>
             </div>
-            <div class="video-label-under">Stranger</div>
-          </div>
-
-          <div style="display: flex; flex-direction: column; align-items: center;">
-            <!-- Local Video Circle -->
-            <div class="video-circle-wrapper you">
-              <video id="localVideo" autoplay playsinline muted style="transform: scaleX(-1);"></video>
+            
+            <!-- Matching Overlay -->
+            <div id="matchingOverlay" style="position: absolute; inset: 0; background: #111; display: none; flex-direction: row; align-items: center; justify-content: center; z-index: 6; gap: 12px;">
+              <div class="matching-spinner" style="width: 24px; height: 24px; border: 3px solid rgba(255,255,255,0.2); border-top-color: #FFF; border-radius: 50%; animation: spin 1s linear infinite;"></div>
+              <div style="font-size: 13px; color: #FFF; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">${t.matchingOverlayText}</div>
             </div>
-            <div class="video-label-under">You</div>
           </div>
 
-          <!-- Media Controls (Mute / Camera Toggle) -->
-          <div style="display: flex; gap: var(--space-3); justify-content: center; flex-shrink: 0;">
-            <button id="muteBtn" style="padding: 6px 14px; font-size: 12px; font-weight: 700; background: var(--surface); color: var(--text-primary); border: 1px solid var(--border); border-radius: var(--radius-full); cursor: pointer; transition: all 0.15s;">🎤 Mute</button>
-            <button id="videoToggleBtn" style="padding: 6px 14px; font-size: 12px; font-weight: 700; background: var(--surface); color: var(--text-primary); border: 1px solid var(--border); border-radius: var(--radius-full); cursor: pointer; transition: all 0.15s;">📹 Camera</button>
+          <!-- Local Video Box -->
+          <div class="video-box-wrapper you" style="flex: 1; position: relative; overflow: hidden; background: #111; display: flex; align-items: center; justify-content: center;">
+            <video id="localVideo" autoplay playsinline muted style="transform: scaleX(-1); width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0;"></video>
+            <!-- Label -->
+            <div style="position: absolute; bottom: 10px; left: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 13px; font-weight: bold; color: #FFF; z-index: 10;">You</div>
           </div>
 
-          <!-- Camera Selector Dropdown (OBS Studio + Built-in camera support) -->
-          <div style="width: 100%; display: flex; flex-direction: column; align-items: center; gap: 4px; flex-shrink: 0;">
-            <label style="font-size: 10px; font-weight: 800; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px;">${t.selectCamera}</label>
-            <select id="cameraSelect" style="background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 6px 12px; font-size: 12px; font-weight: bold; color: var(--text-primary); cursor: pointer; max-width: 260px; outline: none; width: 85%; appearance: auto;">
-              <option value="">${t.detectingCameras}</option>
-            </select>
+          <!-- Media Controls & Camera Selector -->
+          <div style="padding: 10px; background: var(--bg-secondary); display: flex; flex-direction: column; gap: 8px;">
+            <div style="display: flex; gap: 10px; justify-content: center;">
+              <button id="muteBtn" style="flex: 1; padding: 8px; font-size: 12px; font-weight: 700; background: var(--surface); color: var(--text-primary); border: 1px solid var(--border); border-radius: var(--radius-md); cursor: pointer; transition: all 0.15s;">🎤 Mute</button>
+              <button id="videoToggleBtn" style="flex: 1; padding: 8px; font-size: 12px; font-weight: 700; background: var(--surface); color: var(--text-primary); border: 1px solid var(--border); border-radius: var(--radius-md); cursor: pointer; transition: all 0.15s;">📹 Camera</button>
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <label style="font-size: 11px; font-weight: bold; color: var(--text-secondary); text-transform: uppercase; white-space: nowrap;">Camera:</label>
+              <select id="cameraSelect" style="flex: 1; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 6px; font-size: 12px; font-weight: bold; color: var(--text-primary); cursor: pointer; outline: none; appearance: auto;">
+                <option value="">${t.detectingCameras}</option>
+              </select>
+            </div>
           </div>
-
-          <div style="font-size: 11px; font-weight: 900; color: var(--primary); text-transform: uppercase; letter-spacing: 1.5px; margin-top: 2px;">
-            VictorMeet Chat
-          </div>
-
         </div>
 
         <!-- Right Column: Text Chat Area -->
