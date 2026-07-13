@@ -92,33 +92,39 @@ export function render() {
             <div class="video-label-under">You</div>
           </div>
 
-          <!-- Camera Selector Dropdown (OBS Studio camera support) -->
-          <div style="width: 100%; display: flex; flex-direction: column; align-items: center; gap: 4px; margin-top: var(--space-2); flex-shrink: 0;">
+          <!-- Media Controls (Mute / Camera Toggle) -->
+          <div style="display: flex; gap: var(--space-3); justify-content: center; flex-shrink: 0;">
+            <button id="muteBtn" style="padding: 6px 14px; font-size: 12px; font-weight: 700; background: var(--surface); color: var(--text-primary); border: 1px solid var(--border); border-radius: var(--radius-full); cursor: pointer; transition: all 0.15s;">🎤 Mute</button>
+            <button id="videoToggleBtn" style="padding: 6px 14px; font-size: 12px; font-weight: 700; background: var(--surface); color: var(--text-primary); border: 1px solid var(--border); border-radius: var(--radius-full); cursor: pointer; transition: all 0.15s;">📹 Camera</button>
+          </div>
+
+          <!-- Camera Selector Dropdown (OBS Studio + Built-in camera support) -->
+          <div style="width: 100%; display: flex; flex-direction: column; align-items: center; gap: 4px; flex-shrink: 0;">
             <label style="font-size: 10px; font-weight: 800; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px;">${t.selectCamera}</label>
-            <select id="cameraSelect" style="background: #FFF; border: 1px solid var(--border); border-radius: var(--radius-md); padding: 4px 12px; font-size: 11px; font-weight: bold; color: var(--text-primary); cursor: pointer; max-width: 250px; outline: none; width: 80%;">
+            <select id="cameraSelect" style="background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 6px 12px; font-size: 12px; font-weight: bold; color: var(--text-primary); cursor: pointer; max-width: 260px; outline: none; width: 85%; appearance: auto;">
               <option value="">${t.detectingCameras}</option>
             </select>
           </div>
 
-          <div style="font-size: 11px; font-weight: 900; color: var(--primary); text-transform: uppercase; letter-spacing: 1.5px; margin-top: 4px;">
+          <div style="font-size: 11px; font-weight: 900; color: var(--primary); text-transform: uppercase; letter-spacing: 1.5px; margin-top: 2px;">
             VictorMeet Chat
           </div>
 
         </div>
 
         <!-- Right Column: Text Chat Area -->
-        <div class="chat-container-classic" style="width: 52%; display: flex; flex-direction: column; background: #FFF; position: relative; height: 100%;">
+        <div class="chat-container-classic" style="width: 52%; display: flex; flex-direction: column; background: var(--bg-secondary); position: relative; height: 100%; border-left: 1px solid var(--border);">
           
           <!-- Chat message logs -->
-          <div id="chatMessages" style="flex: 1; overflow-y: auto; padding: var(--space-4); display: flex; flex-direction: column; gap: var(--space-2.5); font-size: 14.5px; font-family: Arial, sans-serif; line-height: 1.4; border-bottom: 1px solid var(--border); background: #FFF;">
-            <div style="color: #555; font-weight: bold; font-size: 13.5px;">${t.systemWelcome}</div>
+          <div id="chatMessages" style="flex: 1; overflow-y: auto; padding: var(--space-4); display: flex; flex-direction: column; gap: var(--space-2.5); font-size: 14.5px; font-family: Arial, sans-serif; line-height: 1.4; border-bottom: 1px solid var(--border); background: var(--bg-primary);">
+            <div style="color: var(--text-secondary); font-weight: bold; font-size: 13.5px;">${t.systemWelcome}</div>
           </div>
 
           <!-- Connection Status indicator -->
-          <div id="connectionStatus" style="padding: 6px var(--space-4); font-size: 13px; font-weight: 600; color: #444; background: #F6F6F6; flex-shrink: 0; min-height: 28px; border-bottom: 1px solid var(--border); display: flex; align-items: center;"></div>
+          <div id="connectionStatus" style="padding: 6px var(--space-4); font-size: 13px; font-weight: 600; color: var(--text-secondary); background: var(--bg-tertiary); flex-shrink: 0; min-height: 28px; border-bottom: 1px solid var(--border); display: flex; align-items: center;"></div>
 
           <!-- Controls Area (Stop / Input / Send) -->
-          <div style="display: flex; padding: var(--space-3); border-top: 1px solid var(--border); background: #F6F6F6; gap: var(--space-3); align-items: center; flex-shrink: 0; min-height: 70px; box-sizing: border-box;">
+          <div style="display: flex; padding: var(--space-3); border-top: 1px solid var(--border); background: var(--bg-secondary); gap: var(--space-3); align-items: center; flex-shrink: 0; min-height: 70px; box-sizing: border-box;">
             
             <!-- Big Stop/Next Button -->
             <button class="btn" id="classicStopBtn" style="width: 110px; height: 46px; font-size: 16px; font-weight: 800; background-color: var(--primary); background: var(--gradient-primary); color: #fff; border-radius: var(--radius-md); border: none; cursor: pointer; transition: all 0.1s;">
@@ -126,7 +132,7 @@ export function render() {
             </button>
 
             <!-- Chat Input field -->
-            <textarea id="chatInput" placeholder="${t.placeholderMsg}" style="flex: 1; height: 46px; background: #FFF; border: 1px solid #CCC; border-radius: var(--radius-md); color: #222; padding: var(--space-2) var(--space-3); resize: none; font-size: 14px; font-family: Arial, sans-serif; box-sizing: border-box;" disabled></textarea>
+            <textarea id="chatInput" placeholder="${t.placeholderMsg}" style="flex: 1; height: 46px; background: var(--bg-tertiary); border: 1px solid var(--border); border-radius: var(--radius-md); color: var(--text-primary); padding: var(--space-2) var(--space-3); resize: none; font-size: 14px; font-family: Arial, sans-serif; box-sizing: border-box;" disabled></textarea>
 
             <!-- Send Button -->
             <button class="btn btn-primary" id="sendMsgBtn" style="width: 80px; height: 46px; font-size: 15px; font-weight: 800; border-radius: var(--radius-md); background-color: var(--primary); background: var(--gradient-primary); border: none; cursor: pointer;" disabled>
