@@ -110,9 +110,6 @@ export function initRouter() {
     #app {
       width: 100%;
       height: 100%;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
       transition: opacity 0.15s ease, transform 0.15s ease;
     }
   `;
