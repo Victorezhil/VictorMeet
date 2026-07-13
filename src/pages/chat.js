@@ -422,6 +422,7 @@ export function mount() {
             socket.emit('stop', { roomId });
           }
           closePeerConnection();
+          stopLocalStream();
           setState('callState', 'idle');
           setState('currentRoom', null);
           setState('partnerId', null);
