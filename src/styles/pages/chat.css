@@ -777,17 +777,16 @@
   background: var(--bg-secondary);
   padding: var(--space-4);
 }
-
 .video-circle-wrapper {
-  width: 350px;
-  height: 350px;
-  border-radius: 50%;
+  width: 100%;
+  max-width: 440px;
+  border-radius: var(--radius-xl); /* Rounded box instead of circle */
   position: relative;
   overflow: hidden;
   box-shadow: var(--shadow-lg);
-  background: #222;
+  background: var(--bg-tertiary);
   transition: transform var(--transition-base);
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 4 / 3; /* Standard video box ratio */
 }
 
 .video-circle-wrapper:hover {
@@ -839,13 +838,14 @@
   }
   
   .video-circle-wrapper {
-    width: 35vw !important;
-    height: 35vw !important;
-    max-width: 200px !important;
-    max-height: 200px !important;
-    min-width: 110px !important;
-    min-height: 110px !important;
+    width: 100% !important;
+    max-width: 220px !important;
+    aspect-ratio: 4 / 3 !important;
+    height: auto !important;
+    min-width: unset !important;
+    min-height: unset !important;
     border-width: 3px !important;
+    border-radius: var(--radius-lg) !important;
   }
 
   .video-label-under {

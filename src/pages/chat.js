@@ -174,21 +174,35 @@ export function mount() {
 
   setVideoElements(localVideo, remoteVideo);
 
-  // Populate camera list for OBS Studio and other camera supports
-  if (navigator.mediaDevices && navigator.mediaDevices.enumerateDevices) {
-    navigator.mediaDevices.enumerateDevices()
-      .then((devices) => {
-        const videoDevices = devices.filter((d) => d.kind === 'videoinput');
-        if (cameraSelect) {
-          cameraSelect.innerHTML = videoDevices
-            .map((d, i) => `<option value="${d.deviceId}">${d.label || `Camera ${i + 1}`}</option>`)
-            .join('');
-          if (videoDevices.length === 0) {
-            cameraSelect.innerHTML = '<option value="">No cameras detected</option>';
-          }
+  // Request camera access immediately on page load so user sees preview
+  // and we get the real device names instead of 'Camera 1'
+  if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+    const constraints = {
+      audio: true,
+      video: { width: { ideal: 1920 }, height: { ideal: 1080 } }
+    };
+    getLocalStream(constraints)
+      .then((stream) => {
+        // Stream is now playing in localVideo thanks to setVideoElements
+        // Now enumerate devices to get real labels
+        if (navigator.mediaDevices.enumerateDevices) {
+          navigator.mediaDevices.enumerateDevices().then((devices) => {
+            const videoDevices = devices.filter((d) => d.kind === 'videoinput');
+            if (cameraSelect) {
+              cameraSelect.innerHTML = videoDevices
+                .map((d, i) => `<option value="${d.deviceId}">${d.label || `Camera ${i + 1}`}</option>`)
+                .join('');
+              if (videoDevices.length === 0) {
+                cameraSelect.innerHTML = '<option value="">No cameras detected</option>';
+              }
+            }
+          });
         }
       })
-      .catch((err) => console.error('[chat] enumerateDevices error:', err));
+      .catch((err) => {
+        console.warn('[chat] Initial camera permission denied or failed:', err);
+        // It's okay, we'll ask again when they click Start
+      });
   }
 
   // Handle camera switch selection
