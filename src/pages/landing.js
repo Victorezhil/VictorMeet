@@ -84,7 +84,7 @@ export function render() {
             <span style="font-size: 9px; color: var(--text-tertiary); text-transform: uppercase; margin-bottom: var(--space-2); font-weight: 600;">Sponsored</span>
             <ins class="adsbygoogle"
                  style="display:block; width:100%; min-height:90px;"
-                 data-ad-client="ca-pub-3286584236618316"
+                 data-ad-client="ca-pub-9747982919206794"
                  data-ad-slot="1000000001"
                  data-ad-format="auto"
                  data-full-width-responsive="true"></ins>
@@ -156,7 +156,7 @@ export function render() {
           <div style="border-top: 1px solid var(--border); padding-top: var(--space-4); margin-top: var(--space-2); min-height: 100px; display: flex; align-items: center; justify-content: center; overflow: hidden; width: 100%;">
             <ins class="adsbygoogle"
                  style="display:block; width:100%; min-height:90px;"
-                 data-ad-client="ca-pub-3286584236618316"
+                 data-ad-client="ca-pub-9747982919206794"
                  data-ad-slot="1000000002"
                  data-ad-format="auto"
                  data-full-width-responsive="true"></ins>

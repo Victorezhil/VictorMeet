@@ -54,7 +54,7 @@ export function render() {
       <div class="ad-top-banner" style="background: var(--bg-secondary); border-bottom: 1px solid var(--border); padding: var(--space-1) var(--space-6); display: flex; align-items: center; justify-content: center; flex-shrink: 0; min-height: 50px; box-sizing: border-box; width: 100%;">
         <ins class="adsbygoogle"
              style="display:block; width:100%; min-height:50px;"
-             data-ad-client="ca-pub-3286584236618316"
+             data-ad-client="ca-pub-9747982919206794"
              data-ad-slot="2000000001"
              data-ad-format="horizontal"
              data-full-width-responsive="true"></ins>
@@ -133,7 +133,7 @@ export function render() {
       <div class="ad-bottom-banner" style="background: var(--bg-secondary); border-top: 1px solid var(--border); padding: var(--space-1) var(--space-6); display: flex; align-items: center; justify-content: center; flex-shrink: 0; min-height: 50px; box-sizing: border-box; width: 100%;">
         <ins class="adsbygoogle"
              style="display:block; width:100%; min-height:50px;"
-             data-ad-client="ca-pub-3286584236618316"
+             data-ad-client="ca-pub-9747982919206794"
              data-ad-slot="2000000002"
              data-ad-format="horizontal"
              data-full-width-responsive="true"></ins>
