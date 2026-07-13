@@ -20,6 +20,9 @@ export function render() {
   const langCode = localStorage.getItem('vm_lang') || 'en';
   const t = TRANSLATIONS[langCode] || TRANSLATIONS.en;
 
+  const savedName = localStorage.getItem('vm_username') || '';
+  const savedAge = localStorage.getItem('vm_userage') || '';
+
   // Funny matching interest tags
   const tags = [
     { id: 'pranks', label: 'Pranks 🎭' },
@@ -102,13 +105,13 @@ export function render() {
           <!-- Name Input -->
           <div>
             <label style="font-size: var(--text-sm); font-weight: 700; color: var(--text-primary); display: block; margin-bottom: var(--space-1.5);">${t.chooseName}</label>
-            <input type="text" id="usernameInput" class="input" placeholder="${t.namePlaceholder}" style="border-radius: var(--radius-md); width: 100%; box-sizing: border-box; background: var(--bg-primary);" required />
+            <input type="text" id="usernameInput" class="input" placeholder="${t.namePlaceholder}" value="${savedName}" style="border-radius: var(--radius-md); width: 100%; box-sizing: border-box; background: var(--bg-primary);" required />
           </div>
 
           <!-- Age Input -->
           <div>
             <label style="font-size: var(--text-sm); font-weight: 700; color: var(--text-primary); display: block; margin-bottom: var(--space-1.5);">${t.enterAge}</label>
-            <input type="number" id="userAgeInput" class="input" placeholder="${t.agePlaceholder}" min="13" max="120" style="border-radius: var(--radius-md); width: 100%; box-sizing: border-box; background: var(--bg-primary);" required />
+            <input type="number" id="userAgeInput" class="input" placeholder="${t.agePlaceholder}" value="${savedAge}" min="13" max="120" style="border-radius: var(--radius-md); width: 100%; box-sizing: border-box; background: var(--bg-primary);" required />
           </div>
 
           <!-- Famous & Funny matching interest tags (Filters) -->
@@ -272,30 +275,23 @@ export function mount() {
     setState('isAuthenticated', true);
     
     localStorage.setItem('vm_username', username);
-    localStorage.setItem('vm_age', age);
+    localStorage.setItem('vm_userage', age);
+
+    // Map active funny filters as matching interests
+    const localInterests = Array.from(activeFilters);
+    setState('selectedInterests', localInterests);
+
+    if (mode === 'text') {
+      setState('isVideoOff', true);
+    } else {
+      setState('isVideoOff', false);
+    }
+
+    // Set flag for chat page to automatically trigger match queue start
+    setState('autoStartQueue', true);
 
     // Navigate to Chat
     navigate('/chat');
-    
-    // Map active funny filters as matching interests
-    const localInterests = Array.from(activeFilters);
-
-    // Auto Join Match Queue
-    setTimeout(() => {
-      const socket = initSocket(username);
-      if (socket) {
-        if (mode === 'text') {
-          setState('isVideoOff', true);
-        } else {
-          setState('isVideoOff', false);
-        }
-        socket.emit('join-queue', {
-          interests: localInterests,
-          filters: { gender: null, region: null }
-        });
-        setState('callState', 'queued');
-      }
-    }, 200);
   }
 
   // Hidden admin panel trigger (Click 5 times)

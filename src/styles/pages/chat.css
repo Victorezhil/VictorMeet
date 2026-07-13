@@ -837,8 +837,12 @@
   }
   
   .video-circle-wrapper {
-    width: 130px !important;
-    height: 130px !important;
+    width: 35vw !important;
+    height: 35vw !important;
+    max-width: 200px !important;
+    max-height: 200px !important;
+    min-width: 110px !important;
+    min-height: 110px !important;
     border-width: 3px !important;
   }
 

@@ -33,7 +33,14 @@ let remoteVideoEl = null;
  * @returns {Promise<MediaStream>}
  */
 export async function getLocalStream(constraints) {
-  const defaults = { video: true, audio: true };
+  const defaults = {
+    video: {
+      width: { ideal: 1920 },
+      height: { ideal: 1080 },
+      frameRate: { ideal: 30 }
+    },
+    audio: true
+  };
   localStream = await navigator.mediaDevices.getUserMedia(constraints || defaults);
   if (localVideoEl) {
     localVideoEl.srcObject = localStream;

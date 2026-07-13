@@ -484,6 +484,16 @@ export function mount() {
     });
   }
 
+  // Handle auto-start from landing page
+  if (getState('autoStartQueue')) {
+    setState('autoStartQueue', false);
+    setTimeout(() => {
+      if (classicStopBtn) {
+        classicStopBtn.click();
+      }
+    }, 100);
+  }
+
   // Trigger AdSense ad loading (two ads on this page)
   try {
     (window.adsbygoogle = window.adsbygoogle || []).push({});
