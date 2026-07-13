@@ -7,25 +7,25 @@
   /* ── Color Palette ─────────────────────────────────────────── */
 
   /* Backgrounds */
-  --bg-primary: #000000;
-  --bg-secondary: #0A0A0A;
-  --bg-tertiary: #121212;
+  --bg-primary: #FFFFFF;
+  --bg-secondary: #F8FAFC;
+  --bg-tertiary: #F1F5F9;
 
   /* Surfaces (Omegle layout panels) */
-  --surface: #1A1A1A;
-  --surface-hover: #262626;
-  --surface-active: #333333;
+  --surface: #FFFFFF;
+  --surface-hover: #F8FAFC;
+  --surface-active: #E2E8F0;
 
   /* Borders */
-  --border: #222222;
-  --border-hover: #444444;
+  --border: #E2E8F0;
+  --border-hover: #CBD5E1;
   --border-focus: #0052FF;
 
   /* Text */
-  --text-primary: #FFFFFF;
-  --text-secondary: #A3A3A3;
-  --text-tertiary: #737373;
-  --text-inverse: #000000;
+  --text-primary: #0F172A;
+  --text-secondary: #475569;
+  --text-tertiary: #94A3B8;
+  --text-inverse: #FFFFFF;
 
   /* Brand – Primary (Electric Blue) */
   --primary: #0052FF;

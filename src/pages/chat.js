@@ -63,32 +63,32 @@ export function render() {
       <div class="chat-main-classic" style="display: flex; flex: 1; min-height: 0; overflow: hidden; background: var(--bg-primary); width: 100%;">
         
         <!-- Left Column: Classic Stacked Videos (Stranger & You) -->
-        <div class="video-container-classic" style="display: flex; flex-direction: column; width: 45%; background: #000; box-sizing: border-box; border-right: 1px solid var(--border);">
+        <div class="video-container-classic" style="display: flex; flex-direction: column; width: 45%; background: var(--bg-secondary); box-sizing: border-box; border-right: 1px solid var(--border);">
           
           <!-- Stranger Video Box -->
-          <div class="video-box-wrapper stranger" style="flex: 1; position: relative; border-bottom: 2px solid var(--bg-primary); overflow: hidden; background: #111; display: flex; align-items: center; justify-content: center;">
-            <video id="remoteVideo" autoplay playsinline style="width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0;"></video>
+          <div class="video-box-wrapper stranger" style="flex: 1; position: relative; border-bottom: 1px solid var(--border); overflow: hidden; background: var(--bg-tertiary); display: flex; align-items: center; justify-content: center;">
+            <video id="remoteVideo" autoplay playsinline style="width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; background: #000;"></video>
             
             <!-- Label -->
-            <div style="position: absolute; bottom: 10px; left: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 13px; font-weight: bold; color: #FFF; z-index: 10;">Stranger</div>
+            <div style="position: absolute; bottom: 10px; left: 10px; background: rgba(0,0,0,0.5); padding: 4px 8px; border-radius: 4px; font-size: 13px; font-weight: bold; color: #FFF; z-index: 10;">Stranger</div>
             
             <!-- Video Placeholder -->
-            <div id="videoPlaceholder" style="position: absolute; inset: 0; background: #111; display: flex; align-items: center; justify-content: center; z-index: 5;">
-              <div style="color: #666; font-size: 14px; font-weight: bold; text-transform: uppercase;">Stranger</div>
+            <div id="videoPlaceholder" style="position: absolute; inset: 0; background: var(--bg-tertiary); display: flex; align-items: center; justify-content: center; z-index: 5;">
+              <div style="color: var(--text-secondary); font-size: 14px; font-weight: bold; text-transform: uppercase;">Stranger</div>
             </div>
             
             <!-- Matching Overlay -->
-            <div id="matchingOverlay" style="position: absolute; inset: 0; background: #111; display: none; flex-direction: row; align-items: center; justify-content: center; z-index: 6; gap: 12px;">
-              <div class="matching-spinner" style="width: 24px; height: 24px; border: 3px solid rgba(255,255,255,0.2); border-top-color: #FFF; border-radius: 50%; animation: spin 1s linear infinite;"></div>
-              <div style="font-size: 13px; color: #FFF; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">${t.matchingOverlayText}</div>
+            <div id="matchingOverlay" style="position: absolute; inset: 0; background: rgba(255,255,255,0.85); display: none; flex-direction: row; align-items: center; justify-content: center; z-index: 6; gap: 12px; backdrop-filter: blur(4px);">
+              <div class="matching-spinner" style="width: 24px; height: 24px; border: 3px solid rgba(0,82,255,0.2); border-top-color: var(--primary); border-radius: 50%; animation: spin 1s linear infinite;"></div>
+              <div style="font-size: 13px; color: var(--text-primary); font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">${t.matchingOverlayText}</div>
             </div>
           </div>
 
           <!-- Local Video Box -->
-          <div class="video-box-wrapper you" style="flex: 1; position: relative; overflow: hidden; background: #111; display: flex; align-items: center; justify-content: center;">
-            <video id="localVideo" autoplay playsinline muted style="transform: scaleX(-1); width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0;"></video>
+          <div class="video-box-wrapper you" style="flex: 1; position: relative; overflow: hidden; background: var(--bg-tertiary); display: flex; align-items: center; justify-content: center;">
+            <video id="localVideo" autoplay playsinline muted style="transform: scaleX(-1); width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; background: #000;"></video>
             <!-- Label -->
-            <div style="position: absolute; bottom: 10px; left: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 13px; font-weight: bold; color: #FFF; z-index: 10;">You</div>
+            <div style="position: absolute; bottom: 10px; left: 10px; background: rgba(0,0,0,0.5); padding: 4px 8px; border-radius: 4px; font-size: 13px; font-weight: bold; color: #FFF; z-index: 10;">You</div>
           </div>
 
           <!-- Media Controls & Camera Selector -->
