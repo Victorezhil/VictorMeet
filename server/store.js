@@ -307,6 +307,17 @@ async function addReport({ reporterId, reportedId, reason, description = '' }) {
 
 // ─── Exported Store ──────────────────────────────────────────
 
+let totalVisitors = 78; // Base visitor counter starting from 78 as requested
+
+function incrementVisitorCount() {
+  totalVisitors += 1;
+  return totalVisitors;
+}
+
+function getVisitorCount() {
+  return totalVisitors;
+}
+
 const store = {
   // Raw collections
   users,
@@ -325,6 +336,8 @@ const store = {
   addBlock,
   isBlocked,
   addReport,
+  incrementVisitorCount,
+  getVisitorCount,
 };
 
 export default store;

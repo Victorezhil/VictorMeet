@@ -49,6 +49,11 @@ export function setupSignaling(io, store, matchQueue) {
   io.on('connection', async (socket) => {
     console.log(`[connect] ${socket.userNickname} (${socket.id})`);
 
+    // Increment and broadcast real-time visitor stats
+    const totalVisitors = store.incrementVisitorCount();
+    const onlineCount = io.sockets.sockets.size;
+    io.emit('online-count', { onlineCount, totalVisitors });
+
     // Register a session for this socket
     store.addSession(socket.id, { userId: socket.userId });
 
@@ -169,6 +174,31 @@ export function setupSignaling(io, store, matchQueue) {
       endCall(socket, 'partner-left');
       matchQueue.removeFromQueue(socket.id);
       store.removeSession(socket.id);
+
+      // Broadcast updated online count on disconnect
+      io.emit('online-count', {
+        onlineCount: io.sockets.sockets.size,
+        totalVisitors: store.getVisitorCount()
+      });
+    });
+
+    // ── admin-action ──────────────────────────────────────
+    socket.on('admin-action', (data) => {
+      console.log(`[admin-action] Action: ${data.type}`);
+      if (data.type === 'add-visitors') {
+        const count = parseInt(data.count) || 10;
+        for (let i = 0; i < count; i++) {
+          store.incrementVisitorCount();
+        }
+        // Broadcast the new count
+        io.emit('online-count', {
+          onlineCount: io.sockets.sockets.size,
+          totalVisitors: store.getVisitorCount()
+        });
+      } else if (data.type === 'clear-queue') {
+        matchQueue.queue = [];
+        console.log('[admin-action] Matching queue cleared by admin.');
+      }
     });
   });
 

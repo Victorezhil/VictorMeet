@@ -36,7 +36,7 @@ export function render() {
     <div class="landing-page classic-layout" style="background: var(--bg-primary); min-height: 100vh; font-family: sans-serif;">
       <!-- Navbar -->
       <nav class="navbar" style="position: static; height: auto; padding: var(--space-4) var(--space-6); background: transparent; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: var(--space-3);">
-        <a href="#/landing" class="nav-logo" style="font-size: 36px; font-weight: 900; text-decoration: none;">
+        <a href="#/landing" id="logoAdminTrigger" class="nav-logo" style="font-size: 36px; font-weight: 900; text-decoration: none; cursor: pointer; user-select: none;">
           <span style="color: var(--primary);">Victor</span><span style="color: var(--secondary);">Meet</span>
         </a>
         <div style="display: flex; align-items: center; gap: var(--space-4); flex-wrap: wrap;">
@@ -72,11 +72,16 @@ export function render() {
           </p>
           
           <!-- Live User Counter -->
-          <div style="background: var(--bg-secondary); border: 1px solid var(--border); padding: var(--space-4); border-radius: var(--radius-lg); display: flex; align-items: center; gap: var(--space-3);">
-            <div style="width: 10px; height: 10px; border-radius: 50%; background: var(--accent-green); animation: pulse 2s infinite; flex-shrink: 0;"></div>
-            <span style="font-size: 15px; font-weight: 600; color: var(--text-primary);">
-              <span id="onlineCountStat">${onlineCount}</span> ${t.usersOnline}
-            </span>
+          <div style="background: var(--bg-secondary); border: 1px solid var(--border); padding: var(--space-4); border-radius: var(--radius-lg); display: flex; flex-direction: column; gap: var(--space-2);">
+            <div style="display: flex; align-items: center; gap: var(--space-3);">
+              <div style="width: 10px; height: 10px; border-radius: 50%; background: var(--accent-green); animation: pulse 2s infinite; flex-shrink: 0;"></div>
+              <span style="font-size: 15px; font-weight: 600; color: var(--text-primary);">
+                <span id="onlineCountStat">${onlineCount}</span> ${t.usersOnline}
+              </span>
+            </div>
+            <div style="font-size: 13.5px; color: var(--text-secondary); padding-left: 22px; font-weight: 600;">
+              📈 <span id="totalVisitorsStat">${getState('totalVisitors') || 78}</span> Visitors
+            </div>
           </div>
 
           <!-- Ad Unit 1 (Google AdSense - In-article fluid unit) -->
@@ -281,6 +286,26 @@ export function mount() {
     }, 200);
   }
 
+  // Hidden admin panel trigger (Click 5 times)
+  let logoClicks = 0;
+  const logoTrigger = document.getElementById('logoAdminTrigger');
+  if (logoTrigger) {
+    logoTrigger.addEventListener('click', (e) => {
+      e.preventDefault();
+      logoClicks += 1;
+      if (logoClicks >= 5) {
+        logoClicks = 0;
+        const pin = prompt('Enter Admin Security PIN:');
+        if (pin === '20032004') {
+          sessionStorage.setItem('vm_admin_auth', 'true');
+          navigate('/admin');
+        } else if (pin !== null) {
+          alert('Invalid Admin PIN!');
+        }
+      }
+    });
+  }
+
   if (startTextBtn) {
     startTextBtn.addEventListener('click', () => checkAuthAndNavigate('text'));
   }
@@ -294,6 +319,15 @@ export function mount() {
   if (countEl) {
     const unsub = subscribe('onlineCount', (count) => {
       countEl.textContent = count;
+    });
+    unsubs.push(unsub);
+  }
+
+  // Live visitors counter updates
+  const visitorsEl = document.getElementById('totalVisitorsStat');
+  if (visitorsEl) {
+    const unsub = subscribe('totalVisitors', (count) => {
+      visitorsEl.textContent = count;
     });
     unsubs.push(unsub);
   }

@@ -16,6 +16,7 @@ import * as settings from './pages/settings.js';
 import * as report from './pages/report.js';
 import * as terms from './pages/terms.js';
 import * as privacy from './pages/privacy.js';
+import * as admin from './pages/admin.js';
 
 async function init() {
   // ── Initialize Vercel Web Analytics ─────────────────────────
@@ -31,6 +32,7 @@ async function init() {
   registerRoute('/report', report);
   registerRoute('/terms', terms);
   registerRoute('/privacy', privacy);
+  registerRoute('/admin', admin);
 
   // ── Restore persisted session ───────────────────────────────
   await loadUserFromStorage();

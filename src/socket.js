@@ -46,8 +46,13 @@ export function initSocket(nickname = null) {
     console.error('[socket] connection error:', err.message);
   });
 
-  socket.on('online-count', (count) => {
-    setState('onlineCount', count);
+  socket.on('online-count', (data) => {
+    if (data && typeof data === 'object') {
+      setState('onlineCount', data.onlineCount || 0);
+      setState('totalVisitors', data.totalVisitors || 0);
+    } else {
+      setState('onlineCount', data || 0);
+    }
   });
 
   return socket;
