@@ -35,7 +35,10 @@ let remoteVideoEl = null;
 export async function getLocalStream(constraints) {
   const defaults = { video: true, audio: true };
   localStream = await navigator.mediaDevices.getUserMedia(constraints || defaults);
-  if (localVideoEl) localVideoEl.srcObject = localStream;
+  if (localVideoEl) {
+    localVideoEl.srcObject = localStream;
+    localVideoEl.play().catch((err) => console.warn('[webrtc] Local video play error:', err));
+  }
   return localStream;
 }
 
@@ -47,8 +50,14 @@ export async function getLocalStream(constraints) {
 export function setVideoElements(local, remote) {
   localVideoEl = local;
   remoteVideoEl = remote;
-  if (localStream && localVideoEl) localVideoEl.srcObject = localStream;
-  if (remoteStream && remoteVideoEl) remoteVideoEl.srcObject = remoteStream;
+  if (localStream && localVideoEl) {
+    localVideoEl.srcObject = localStream;
+    localVideoEl.play().catch((err) => console.warn('[webrtc] Local video play error:', err));
+  }
+  if (remoteStream && remoteVideoEl) {
+    remoteVideoEl.srcObject = remoteStream;
+    remoteVideoEl.play().catch((err) => console.warn('[webrtc] Remote video play error:', err));
+  }
 }
 
 // ── Peer Connection ──────────────────────────────────────────
@@ -73,7 +82,10 @@ export function createPeerConnection(socket, roomId) {
   // Receive remote tracks
   peerConnection.ontrack = (event) => {
     remoteStream = event.streams[0];
-    if (remoteVideoEl) remoteVideoEl.srcObject = remoteStream;
+    if (remoteVideoEl) {
+      remoteVideoEl.srcObject = remoteStream;
+      remoteVideoEl.play().catch((err) => console.warn('[webrtc] Remote video play error:', err));
+    }
   };
 
   // Trickle ICE candidates to the signaling server
