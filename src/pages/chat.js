@@ -60,7 +60,7 @@ export function render() {
       </div>
 
       <!-- Classic Work Area -->
-      <div class="chat-main-classic" style="display: flex; flex: 1; overflow: hidden; background: var(--bg-primary); width: 100%;">
+      <div class="chat-main-classic" style="display: flex; flex: 1; min-height: 0; overflow: hidden; background: var(--bg-primary); width: 100%;">
         
         <!-- Left Column: Circular Videos (Stranger & You) -->
         <div class="video-container-classic" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--space-4); box-sizing: border-box;">
