@@ -169,6 +169,18 @@ export function render() {
           
         </div>
       </div>
+
+      <!-- Footer with visible admin login link -->
+      <footer style="width: 100%; border-top: 1px solid var(--border); padding: var(--space-4) 0; margin-top: var(--space-12); text-align: center; font-size: 13px; color: var(--text-secondary); display: flex; flex-direction: column; align-items: center; gap: var(--space-1); flex-shrink: 0;">
+        <div>© 2026 VictorMeet. All rights reserved.</div>
+        <div style="display: flex; gap: var(--space-3); margin-top: var(--space-1); flex-wrap: wrap; justify-content: center;">
+          <a href="#/terms" style="color: var(--primary); text-decoration: none; font-weight: 600;">Terms & Conditions</a>
+          <span style="color: var(--border);">|</span>
+          <a href="#/privacy" style="color: var(--primary); text-decoration: none; font-weight: 600;">Privacy Policy</a>
+          <span style="color: var(--border);">|</span>
+          <a href="#/admin" style="color: var(--primary); text-decoration: none; font-weight: 700;">Admin Panel Login</a>
+        </div>
+      </footer>
     </div>
   `;
 }

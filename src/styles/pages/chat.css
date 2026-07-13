@@ -779,26 +779,37 @@
 }
 
 .video-circle-wrapper {
-  width: 320px;
-  height: 320px;
+  width: 350px;
+  height: 350px;
   border-radius: 50%;
   position: relative;
   overflow: hidden;
   box-shadow: var(--shadow-lg);
   background: #222;
   transition: transform var(--transition-base);
+  aspect-ratio: 1 / 1;
 }
 
 .video-circle-wrapper:hover {
-  transform: scale(1.03);
+  transform: scale(1.02);
 }
 
 .video-circle-wrapper.stranger {
-  border: 4px solid var(--secondary) !important; /* Orange border for stranger */
+  border: 5px solid var(--secondary) !important; /* Orange border for stranger */
 }
 
 .video-circle-wrapper.you {
-  border: 4px solid var(--primary) !important; /* Blue border for you */
+  border: 5px solid var(--primary) !important; /* Blue border for you */
+}
+
+.video-label-under {
+  margin-top: var(--space-2.5);
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--text-primary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-align: center;
 }
 
 .video-circle-wrapper video {
@@ -829,6 +840,12 @@
     width: 130px !important;
     height: 130px !important;
     border-width: 3px !important;
+  }
+
+  .video-label-under {
+    font-size: 11px !important;
+    margin-top: var(--space-1) !important;
+    letter-spacing: 0.5px !important;
   }
   
   .video-circle-wrapper #videoPlaceholder {

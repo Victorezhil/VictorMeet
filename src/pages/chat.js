@@ -63,36 +63,45 @@ export function render() {
       <div class="chat-main-classic" style="display: flex; flex: 1; overflow: hidden; background: var(--bg-primary); width: 100%;">
         
         <!-- Left Column: Circular Videos (Stranger & You) -->
-        <div class="video-container-classic">
+        <div class="video-container-classic" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--space-4); box-sizing: border-box;">
           
-          <!-- Stranger Video Circle -->
-          <div class="video-circle-wrapper stranger">
-            <video id="remoteVideo" autoplay playsinline></video>
-            
-            <!-- Video Placeholder / Matching Overlay -->
-            <div id="videoPlaceholder" style="position: absolute; inset: 0; background: rgba(0,0,0,0.85); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 5;">
-              <div style="font-size: 28px; margin-bottom: 4px;">📹</div>
-              <div style="font-size: 12px; color: #FFF; font-weight: bold; text-align: center; text-transform: uppercase; letter-spacing: 0.5px;">Stranger</div>
+          <div style="display: flex; flex-direction: column; align-items: center;">
+            <!-- Stranger Video Circle -->
+            <div class="video-circle-wrapper stranger">
+              <video id="remoteVideo" autoplay playsinline></video>
+              
+              <!-- Video Placeholder / Matching Overlay -->
+              <div id="videoPlaceholder" style="position: absolute; inset: 0; background: rgba(0,0,0,0.85); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 5;">
+                <div style="font-size: 28px; margin-bottom: 4px;">📹</div>
+                <div style="font-size: 12px; color: #FFF; font-weight: bold; text-align: center; text-transform: uppercase; letter-spacing: 0.5px;">Stranger</div>
+              </div>
+              
+              <div id="matchingOverlay" style="position: absolute; inset: 0; background: rgba(0,0,0,0.9); display: none; flex-direction: column; align-items: center; justify-content: center; z-index: 6; gap: 8px;">
+                <div class="matching-spinner" style="width: 32px; height: 32px; border: 3px solid rgba(255,255,255,0.2); border-top-color: var(--secondary); border-radius: 50%; animation: spin 1s linear infinite;"></div>
+                <div style="font-size: 11px; color: #FFF; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">${t.matchingOverlayText}</div>
+              </div>
             </div>
-            
-            <div id="matchingOverlay" style="position: absolute; inset: 0; background: rgba(0,0,0,0.9); display: none; flex-direction: column; align-items: center; justify-content: center; z-index: 6; gap: 8px;">
-              <div class="matching-spinner" style="width: 32px; height: 32px; border: 3px solid rgba(255,255,255,0.2); border-top-color: var(--secondary); border-radius: 50%; animation: spin 1s linear infinite;"></div>
-              <div style="font-size: 11px; color: #FFF; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">${t.matchingOverlayText}</div>
-            </div>
+            <div class="video-label-under">Stranger</div>
           </div>
 
-          <!-- Local Video Circle -->
-          <div class="video-circle-wrapper you">
-            <video id="localVideo" autoplay playsinline muted style="transform: scaleX(-1);"></video>
-            <div style="position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.6); padding: 2px 8px; border-radius: var(--radius-full); font-size: 11px; font-weight: 800; color: #fff; z-index: 10; text-transform: uppercase; letter-spacing: 0.5px;">You</div>
+          <div style="display: flex; flex-direction: column; align-items: center;">
+            <!-- Local Video Circle -->
+            <div class="video-circle-wrapper you">
+              <video id="localVideo" autoplay playsinline muted style="transform: scaleX(-1);"></video>
+            </div>
+            <div class="video-label-under">You</div>
           </div>
 
           <!-- Camera Selector Dropdown (OBS Studio camera support) -->
-          <div style="width: 100%; display: flex; flex-direction: column; align-items: center; gap: 4px; margin-top: var(--space-4); flex-shrink: 0;">
+          <div style="width: 100%; display: flex; flex-direction: column; align-items: center; gap: 4px; margin-top: var(--space-2); flex-shrink: 0;">
             <label style="font-size: 10px; font-weight: 800; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px;">${t.selectCamera}</label>
             <select id="cameraSelect" style="background: #FFF; border: 1px solid var(--border); border-radius: var(--radius-md); padding: 4px 12px; font-size: 11px; font-weight: bold; color: var(--text-primary); cursor: pointer; max-width: 250px; outline: none; width: 80%;">
               <option value="">${t.detectingCameras}</option>
             </select>
+          </div>
+
+          <div style="font-size: 11px; font-weight: 900; color: var(--primary); text-transform: uppercase; letter-spacing: 1.5px; margin-top: 4px;">
+            VictorMeet Chat
           </div>
 
         </div>
@@ -192,26 +201,7 @@ export function mount() {
     });
   }
 
-  // Acquire local media
-  getLocalStream()
-    .then(() => {
-      console.log('[chat] local stream acquired');
-      // Re-trigger enumerate devices after user grants permission to get actual labels (OBS, etc.)
-      if (navigator.mediaDevices && navigator.mediaDevices.enumerateDevices) {
-        navigator.mediaDevices.enumerateDevices().then((devices) => {
-          const videoDevices = devices.filter((d) => d.kind === 'videoinput');
-          if (cameraSelect && videoDevices.length > 0) {
-            cameraSelect.innerHTML = videoDevices
-              .map((d, i) => `<option value="${d.deviceId}">${d.label || `Camera ${i + 1}`}</option>`)
-              .join('');
-          }
-        });
-      }
-    })
-    .catch((err) => {
-      console.error('[chat] getUserMedia error:', err);
-      appendSystemMessage('System: Camera/mic access denied. Please allow permissions.');
-    });
+
 
   // Ensure socket
   let socket = getSocket();
@@ -383,14 +373,42 @@ export function mount() {
       const callState = getState('callState');
 
       if (callState === 'idle' || callState === 'ended') {
-        // Start matching
-        if (!socket) {
-          socket = initSocket();
-        }
-        const interests = getState('selectedInterests') || [];
-        socket.emit('join-queue', { interests, filters: { gender: null, region: null } });
-        setState('callState', 'queued');
-        updateUIForState('queued');
+        // Start matching - require camera access first
+        const originalText = classicStopBtn.textContent;
+        classicStopBtn.textContent = 'Accessing...';
+        classicStopBtn.disabled = true;
+
+        getLocalStream()
+          .then(() => {
+            console.log('[chat] camera stream acquired on Start click');
+            classicStopBtn.disabled = false;
+
+            // Re-trigger enumerate devices after user grants permission to get actual labels (OBS, etc.)
+            if (navigator.mediaDevices && navigator.mediaDevices.enumerateDevices) {
+              navigator.mediaDevices.enumerateDevices().then((devices) => {
+                const videoDevices = devices.filter((d) => d.kind === 'videoinput');
+                if (cameraSelect && videoDevices.length > 0) {
+                  cameraSelect.innerHTML = videoDevices
+                    .map((d, i) => `<option value="${d.deviceId}">${d.label || `Camera ${i + 1}`}</option>`)
+                    .join('');
+                }
+              });
+            }
+
+            if (!socket) {
+              socket = initSocket();
+            }
+            const interests = getState('selectedInterests') || [];
+            socket.emit('join-queue', { interests, filters: { gender: null, region: null } });
+            setState('callState', 'queued');
+            updateUIForState('queued');
+          })
+          .catch((err) => {
+            console.error('[chat] getUserMedia error:', err);
+            classicStopBtn.disabled = false;
+            classicStopBtn.textContent = originalText;
+            alert('Camera and microphone access are required to start video chatting. Please allow permissions and try again.');
+          });
       } else {
         // Confirm stop / next
         if (!stopConfirmState) {
