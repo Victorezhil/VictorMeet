@@ -79,15 +79,15 @@ export function render() {
             </span>
           </div>
 
-          <!-- Ad Unit 1 (Google AdSense) -->
+          <!-- Ad Unit 1 (Google AdSense - In-article fluid unit) -->
           <div class="card" style="padding: var(--space-4); background: var(--bg-secondary); border-color: var(--border); min-height: 120px; display: flex; flex-direction: column; justify-content: center; align-items: center; overflow: hidden; width: 100%;">
             <span style="font-size: 9px; color: var(--text-tertiary); text-transform: uppercase; margin-bottom: var(--space-2); font-weight: 600;">Sponsored</span>
             <ins class="adsbygoogle"
-                 style="display:block; width:100%; min-height:90px;"
+                 style="display:block; text-align:center;"
+                 data-ad-layout="in-article"
+                 data-ad-format="fluid"
                  data-ad-client="ca-pub-9747982919206794"
-                 data-ad-slot="1000000001"
-                 data-ad-format="auto"
-                 data-full-width-responsive="true"></ins>
+                 data-ad-slot="9853790930"></ins>
           </div>
         </div>
 
