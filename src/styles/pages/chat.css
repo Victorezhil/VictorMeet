@@ -795,11 +795,13 @@
 }
 
 .video-circle-wrapper.stranger {
-  border: 5px solid var(--secondary) !important; /* Orange border for stranger */
+  border: 5px solid #FFFFFF !important; /* Premium White border */
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.15), var(--shadow-lg);
 }
 
 .video-circle-wrapper.you {
-  border: 5px solid var(--primary) !important; /* Blue border for you */
+  border: 5px solid #FFFFFF !important; /* Premium White border */
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.15), var(--shadow-lg);
 }
 
 .video-label-under {
