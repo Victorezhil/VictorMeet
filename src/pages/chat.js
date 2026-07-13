@@ -50,11 +50,11 @@ export function render() {
         </div>
       </div>
 
-      <!-- Top Ad Banner (Multiplex unit) -->
-      <div class="ad-top-banner" style="background: var(--bg-secondary); border-bottom: 1px solid var(--border); padding: var(--space-1) var(--space-6); display: flex; align-items: center; justify-content: center; flex-shrink: 0; min-height: 50px; box-sizing: border-box; width: 100%;">
+      <!-- Top Ad Banner (Multiplex unit) - Fixed Size -->
+      <div class="ad-top-banner" style="background: var(--bg-secondary); border-bottom: 1px solid var(--border); padding: 4px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; min-height: 50px; max-height: 60px; box-sizing: border-box; width: 100%; overflow: hidden;">
         <ins class="adsbygoogle"
-             style="display:block; width:100%; min-height:50px;"
-             data-ad-format="autorelaxed"
+             style="display:block; width:100%; height: 50px;"
+             data-ad-format="horizontal"
              data-ad-client="ca-pub-9747982919206794"
              data-ad-slot="2740597990"></ins>
       </div>
@@ -62,14 +62,14 @@ export function render() {
       <!-- Classic Work Area (Umingle layout) -->
       <div class="chat-main-classic" style="display: flex; flex-direction: column; flex: 1; min-height: 0; background: var(--bg-secondary); width: 100%; padding: var(--space-4); box-sizing: border-box; overflow-y: auto;">
         
-        <!-- Top Row: Videos side by side -->
-        <div class="umingle-videos-row" style="display: flex; flex-direction: row; justify-content: center; gap: var(--space-4); width: 100%; max-width: 1400px; margin: 0 auto;">
+        <!-- Top Row: Videos side by side (Super View) -->
+        <div class="umingle-videos-row" style="display: flex; flex-direction: row; justify-content: center; gap: var(--space-4); width: 100%; max-width: 100%; margin: 0 auto; max-height: 65vh;">
           
           <!-- Stranger Video Box -->
-          <div class="video-box-wrapper stranger" style="flex: 1; max-width: 650px; aspect-ratio: 4/3; position: relative; border-radius: var(--radius-lg); overflow: hidden; background: #111; box-shadow: var(--shadow-md);">
+          <div class="video-box-wrapper stranger" style="flex: 1; aspect-ratio: 4/3; position: relative; border-radius: var(--radius-lg); overflow: hidden; background: #111; box-shadow: var(--shadow-md); max-height: 100%;">
             <video id="remoteVideo" autoplay playsinline style="width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; background: #000;"></video>
             
-            <div style="position: absolute; bottom: 12px; left: 16px; font-size: 18px; font-weight: 800; color: rgba(255,255,255,0.7); z-index: 10; letter-spacing: -0.5px;">
+            <div style="position: absolute; bottom: 12px; left: 16px; font-size: clamp(14px, 2vw, 22px); font-weight: 800; color: rgba(255,255,255,0.7); z-index: 10; letter-spacing: -0.5px;">
               VictorMeet.com
             </div>
             
@@ -86,50 +86,50 @@ export function render() {
           </div>
 
           <!-- Local Video Box -->
-          <div class="video-box-wrapper you" style="flex: 1; max-width: 650px; aspect-ratio: 4/3; position: relative; border-radius: var(--radius-lg); overflow: hidden; background: #111; box-shadow: var(--shadow-md);">
+          <div class="video-box-wrapper you" style="flex: 1; aspect-ratio: 4/3; position: relative; border-radius: var(--radius-lg); overflow: hidden; background: #111; box-shadow: var(--shadow-md); max-height: 100%;">
             <video id="localVideo" autoplay playsinline muted style="transform: scaleX(-1); width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; background: #000;"></video>
-            <div style="position: absolute; bottom: 12px; right: 16px; background: rgba(0,0,0,0.5); padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; color: #FFF; z-index: 10;">You</div>
+            <div style="position: absolute; bottom: 12px; right: 16px; background: rgba(0,0,0,0.5); padding: 4px 8px; border-radius: 4px; font-size: clamp(12px, 1.5vw, 16px); font-weight: bold; color: #FFF; z-index: 10;">You</div>
           </div>
         </div>
 
         <!-- Bottom Row: Controls & Chat -->
-        <div class="umingle-bottom-row" style="display: flex; flex-direction: row; justify-content: center; gap: var(--space-4); width: 100%; max-width: 1400px; margin: var(--space-4) auto 0; flex: 1; min-height: 250px;">
+        <div class="umingle-bottom-row" style="display: flex; flex-direction: row; justify-content: center; gap: var(--space-4); width: 100%; max-width: 100%; margin: var(--space-4) auto 0; flex: 1; min-height: 250px;">
           
           <!-- Left Info & Controls -->
-          <div class="umingle-controls-col" style="flex: 1; max-width: 650px; display: flex; flex-direction: column; background: var(--bg-primary); border-radius: var(--radius-lg); padding: var(--space-4); box-shadow: var(--shadow-sm); box-sizing: border-box;">
-            <h3 style="margin: 0 0 8px 0; color: var(--text-primary); font-size: 18px; font-weight: 700;">Welcome to VictorMeet.</h3>
-            <div style="color: var(--accent-rose); font-size: 14px; font-weight: 600; margin-bottom: 4px;">🔞 You must be 18+</div>
-            <div style="color: var(--text-secondary); font-size: 14px; margin-bottom: var(--space-4);">No nudity, hate speech, or harassment</div>
+          <div class="umingle-controls-col" style="flex: 1; display: flex; flex-direction: column; background: var(--bg-primary); border-radius: var(--radius-lg); padding: var(--space-4); box-shadow: var(--shadow-sm); box-sizing: border-box;">
+            <h3 style="margin: 0 0 8px 0; color: var(--text-primary); font-size: clamp(16px, 2vw, 22px); font-weight: 700;">Welcome to VictorMeet.</h3>
+            <div style="color: var(--accent-rose); font-size: clamp(12px, 1.5vw, 16px); font-weight: 600; margin-bottom: 4px;">🔞 You must be 18+</div>
+            <div style="color: var(--text-secondary); font-size: clamp(12px, 1.5vw, 16px); margin-bottom: var(--space-4);">No nudity, hate speech, or harassment</div>
             
-            <button class="btn" id="classicStopBtn" style="width: 120px; height: 50px; font-size: 18px; font-weight: 700; background: #8B5CF6; color: #fff; border-radius: var(--radius-md); border: none; cursor: pointer; transition: all 0.15s; margin-top: auto;">
-              Start<br><span style="font-size: 11px; font-weight: normal;">Esc</span>
+            <button class="btn" id="classicStopBtn" style="width: 140px; height: 56px; font-size: 20px; font-weight: 700; background: #8B5CF6; color: #fff; border-radius: var(--radius-md); border: none; cursor: pointer; transition: all 0.15s; margin-top: auto;">
+              Start<br><span style="font-size: 12px; font-weight: normal;">Esc</span>
             </button>
 
             <!-- Media Controls & Camera Selector tucked below -->
-            <div style="display: flex; gap: 10px; margin-top: var(--space-4); align-items: center; border-top: 1px solid var(--border); padding-top: var(--space-3);">
+            <div style="display: flex; gap: 10px; margin-top: var(--space-4); align-items: center; border-top: 1px solid var(--border); padding-top: var(--space-3); flex-wrap: wrap;">
               <button id="muteBtn" style="padding: 6px 12px; font-size: 12px; font-weight: 700; background: var(--surface); color: var(--text-primary); border: 1px solid var(--border); border-radius: var(--radius-md); cursor: pointer;">🎤 Mute</button>
               <button id="videoToggleBtn" style="padding: 6px 12px; font-size: 12px; font-weight: 700; background: var(--surface); color: var(--text-primary); border: 1px solid var(--border); border-radius: var(--radius-md); cursor: pointer;">📹 Camera</button>
-              <select id="cameraSelect" style="flex: 1; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 6px; font-size: 12px; font-weight: bold; color: var(--text-primary); cursor: pointer; outline: none; appearance: auto; max-width: 200px;">
+              <select id="cameraSelect" style="flex: 1; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 6px; font-size: 12px; font-weight: bold; color: var(--text-primary); cursor: pointer; outline: none; appearance: auto; min-width: 150px;">
                 <option value="">${t.detectingCameras}</option>
               </select>
             </div>
           </div>
 
           <!-- Right Chat Area -->
-          <div class="umingle-chat-col" style="flex: 1; max-width: 650px; display: flex; flex-direction: column; background: var(--bg-primary); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-sm); border: 1px solid var(--border);">
+          <div class="umingle-chat-col" style="flex: 1; display: flex; flex-direction: column; background: var(--bg-primary); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-sm); border: 1px solid var(--border);">
             
             <!-- Connection Status -->
-            <div id="connectionStatus" style="padding: 8px var(--space-4); font-size: 13px; font-weight: 600; color: var(--text-secondary); background: var(--bg-secondary); border-bottom: 1px solid var(--border);"></div>
+            <div id="connectionStatus" style="padding: 10px var(--space-4); font-size: 14px; font-weight: 600; color: var(--text-secondary); background: var(--bg-secondary); border-bottom: 1px solid var(--border);"></div>
 
             <!-- Chat Logs -->
-            <div id="chatMessages" style="flex: 1; overflow-y: auto; padding: var(--space-4); display: flex; flex-direction: column; gap: var(--space-2.5); font-size: 14.5px; font-family: Arial, sans-serif; line-height: 1.4;">
-              <div style="color: var(--text-secondary); font-weight: bold; font-size: 13.5px;">${t.systemWelcome}</div>
+            <div id="chatMessages" style="flex: 1; overflow-y: auto; padding: var(--space-4); display: flex; flex-direction: column; gap: var(--space-2.5); font-size: 16px; font-family: Arial, sans-serif; line-height: 1.5;">
+              <div style="color: var(--text-secondary); font-weight: bold; font-size: 14.5px;">${t.systemWelcome}</div>
             </div>
 
             <!-- Chat Input Row -->
             <div style="display: flex; padding: var(--space-3); border-top: 1px solid var(--border); background: var(--bg-secondary); gap: var(--space-3); align-items: center;">
-              <textarea id="chatInput" placeholder="${t.placeholderMsg}" style="flex: 1; height: 46px; background: var(--bg-primary); border: 1px solid var(--border); border-radius: var(--radius-md); color: var(--text-primary); padding: var(--space-2) var(--space-3); resize: none; font-size: 14px; box-sizing: border-box;" disabled></textarea>
-              <button class="btn btn-primary" id="sendMsgBtn" style="width: 80px; height: 46px; font-size: 15px; font-weight: 800; border-radius: var(--radius-md); background: #8B5CF6; border: none; cursor: pointer; color: #FFF;" disabled>
+              <textarea id="chatInput" placeholder="${t.placeholderMsg}" style="flex: 1; height: 50px; background: var(--bg-primary); border: 1px solid var(--border); border-radius: var(--radius-md); color: var(--text-primary); padding: var(--space-2) var(--space-3); resize: none; font-size: 15px; box-sizing: border-box;" disabled></textarea>
+              <button class="btn btn-primary" id="sendMsgBtn" style="width: 90px; height: 50px; font-size: 16px; font-weight: 800; border-radius: var(--radius-md); background: #8B5CF6; border: none; cursor: pointer; color: #FFF;" disabled>
                 ${t.sendBtn}
               </button>
             </div>
@@ -138,11 +138,11 @@ export function render() {
         </div>
       </div>
 
-      <!-- Bottom Ad Banner (Multiplex unit) -->
-      <div class="ad-bottom-banner" style="background: var(--bg-secondary); border-top: 1px solid var(--border); padding: var(--space-1) var(--space-6); display: flex; align-items: center; justify-content: center; flex-shrink: 0; min-height: 50px; box-sizing: border-box; width: 100%;">
+      <!-- Bottom Ad Banner (Multiplex unit) - Fixed Size -->
+      <div class="ad-bottom-banner" style="background: var(--bg-secondary); border-top: 1px solid var(--border); padding: 4px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; min-height: 50px; max-height: 60px; box-sizing: border-box; width: 100%; overflow: hidden;">
         <ins class="adsbygoogle"
-             style="display:block; width:100%; min-height:50px;"
-             data-ad-format="autorelaxed"
+             style="display:block; width:100%; height: 50px;"
+             data-ad-format="horizontal"
              data-ad-client="ca-pub-9747982919206794"
              data-ad-slot="2740597990"></ins>
       </div>
