@@ -138,6 +138,16 @@ export function render() {
         </div>
       </div>
 
+      <!-- Ad Unit 5 (Google AdSense - In-article fluid unit) -->
+      <div style="background: var(--bg-secondary); border-top: 1px solid var(--border); padding: var(--space-3) var(--space-4); display: flex; align-items: center; justify-content: center; flex-shrink: 0; overflow: hidden; width: 100%; box-sizing: border-box;">
+        <ins class="adsbygoogle"
+             style="display:block; text-align:center;"
+             data-ad-layout="in-article"
+             data-ad-format="fluid"
+             data-ad-client="ca-pub-9747982919206794"
+             data-ad-slot="5936395529"></ins>
+      </div>
+
       <!-- Bottom Ad Banner (Multiplex unit) - Fixed Size -->
       <div class="ad-bottom-banner" style="background: var(--bg-secondary); border-top: 1px solid var(--border); padding: 4px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; min-height: 50px; max-height: 60px; box-sizing: border-box; width: 100%; overflow: hidden;">
         <ins class="adsbygoogle"
@@ -509,8 +519,9 @@ export function mount() {
     }, 100);
   }
 
-  // Trigger AdSense ad loading (two ads on this page)
+  // Trigger AdSense ad loading (three ads on this page)
   try {
+    (window.adsbygoogle = window.adsbygoogle || []).push({});
     (window.adsbygoogle = window.adsbygoogle || []).push({});
     (window.adsbygoogle = window.adsbygoogle || []).push({});
   } catch (e) {

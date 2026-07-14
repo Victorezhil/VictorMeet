@@ -74,6 +74,16 @@ export function render() {
           <button class="btn btn-primary" type="submit">Save Changes</button>
         </form>
       </div>
+      <!-- Ad Unit 7 (Google AdSense - Below edit form) -->
+      <div style="background: var(--bg-secondary); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: var(--space-4); margin: var(--space-6) auto; display: flex; flex-direction: column; align-items: center; overflow: hidden; max-width: 728px; width: 100%; box-sizing: border-box;">
+        <span style="font-size: 9px; color: var(--text-tertiary); text-transform: uppercase; margin-bottom: var(--space-2); font-weight: 600;">Sponsored</span>
+        <ins class="adsbygoogle"
+             style="display:block; text-align:center;"
+             data-ad-layout="in-article"
+             data-ad-format="fluid"
+             data-ad-client="ca-pub-9747982919206794"
+             data-ad-slot="2148772293"></ins>
+      </div>
     </div>
   `;
 }
@@ -81,6 +91,13 @@ export function render() {
 // ── Mount ─────────────────────────────────────────────────────
 
 export function mount() {
+  // Trigger Google AdSense display load
+  try {
+    (window.adsbygoogle = window.adsbygoogle || []).push({});
+  } catch (e) {
+    console.warn('[AdSense] Load error:', e);
+  }
+
   if (!getState('isAuthenticated')) {
     navigate('/auth');
     return;

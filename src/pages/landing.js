@@ -173,6 +173,17 @@ export function render() {
         </div>
       </div>
 
+      <!-- Ad Unit 3 (Google AdSense - Below form, full width) -->
+      <div style="background: var(--bg-secondary); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: var(--space-4); margin: 0 var(--space-6); display: flex; flex-direction: column; align-items: center; overflow: hidden; width: calc(100% - 2 * var(--space-6)); box-sizing: border-box;">
+        <span style="font-size: 9px; color: var(--text-tertiary); text-transform: uppercase; margin-bottom: var(--space-2); font-weight: 600;">Sponsored</span>
+        <ins class="adsbygoogle"
+             style="display:block; text-align:center;"
+             data-ad-layout="in-article"
+             data-ad-format="fluid"
+             data-ad-client="ca-pub-9747982919206794"
+             data-ad-slot="9660018119"></ins>
+      </div>
+
       <!-- Footer with visible admin login link -->
       <footer style="width: 100%; border-top: 1px solid var(--border); padding: var(--space-4) 0; margin-top: var(--space-12); text-align: center; font-size: 13px; color: var(--text-secondary); display: flex; flex-direction: column; align-items: center; gap: var(--space-1); flex-shrink: 0;">
         <div>© 2026 VictorMeet. All rights reserved.</div>
@@ -184,6 +195,17 @@ export function render() {
           <a href="#/admin" style="color: var(--primary); text-decoration: none; font-weight: 700;">Admin Panel Login</a>
         </div>
       </footer>
+
+      <!-- Ad Unit 4 (Google AdSense - Bottom of page) -->
+      <div style="background: var(--bg-secondary); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: var(--space-4); margin: 0 var(--space-6) var(--space-6); display: flex; flex-direction: column; align-items: center; overflow: hidden; box-sizing: border-box;">
+        <span style="font-size: 9px; color: var(--text-tertiary); text-transform: uppercase; margin-bottom: var(--space-2); font-weight: 600;">Sponsored</span>
+        <ins class="adsbygoogle"
+             style="display:block; text-align:center;"
+             data-ad-format="fluid"
+             data-ad-layout-key="-6t+ed+2i-1n-4w"
+             data-ad-client="ca-pub-9747982919206794"
+             data-ad-slot="1050900351"></ins>
+      </div>
     </div>
   `;
 }
@@ -342,6 +364,8 @@ export function mount() {
 
   // Trigger Google AdSense display load
   try {
+    (window.adsbygoogle = window.adsbygoogle || []).push({});
+    (window.adsbygoogle = window.adsbygoogle || []).push({});
     (window.adsbygoogle = window.adsbygoogle || []).push({});
     (window.adsbygoogle = window.adsbygoogle || []).push({});
   } catch (e) {
