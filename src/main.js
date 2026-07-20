@@ -3,6 +3,7 @@
 // ============================================================
 
 import { inject } from '@vercel/analytics';
+import { injectSpeedInsights } from '@vercel/speed-insights';
 import { initRouter, registerRoute, navigate } from './router.js';
 import { loadUserFromStorage, getState } from './state.js';
 import { initSocket } from './socket.js';
@@ -21,6 +22,9 @@ import * as admin from './pages/admin.js';
 async function init() {
   // ── Initialize Vercel Web Analytics ─────────────────────────
   inject();
+
+  // ── Initialize Vercel Speed Insights ────────────────────────
+  injectSpeedInsights();
 
   // ── Register all routes ─────────────────────────────────────
   registerRoute('/landing', landing);
